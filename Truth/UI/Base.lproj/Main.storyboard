@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Truth" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter a username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mNm-6i-co0">
+                                <rect key="frame" x="120" y="20" width="134" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.96856411520483598" green="1" blue="0.98033893193165644" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="username" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XOk-hf-TRc">
+                                <rect key="frame" x="120" y="49" width="134" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="r8L-3a-TX1"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="134" id="uLl-R0-o4G"/>
+                                </constraints>
+                                <color key="textColor" red="0.98286732087122897" green="0.9800377505906348" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vc8-m3-7yG">
+                                <rect key="frame" x="163" y="87" width="48" height="30"/>
+                                <state key="normal" title="Search">
+                                    <color key="titleColor" red="0.96698891652058894" green="0.96543535778325273" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="searchTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="6V1-mc-tW3"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.13751109678809154" green="0.23980365969289053" blue="0.53257852157360408" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="vc8-m3-7yG" firstAttribute="top" secondItem="XOk-hf-TRc" secondAttribute="bottom" constant="8" id="9Xu-oE-3JQ"/>
+                            <constraint firstItem="mNm-6i-co0" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Gk4-E0-kyR"/>
+                            <constraint firstItem="XOk-hf-TRc" firstAttribute="top" secondItem="mNm-6i-co0" secondAttribute="bottom" constant="8" id="U87-4x-ZJH"/>
+                            <constraint firstItem="vc8-m3-7yG" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="cXc-dx-tHR"/>
+                            <constraint firstItem="XOk-hf-TRc" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="jn0-hH-Yhx"/>
+                            <constraint firstItem="mNm-6i-co0" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="p23-m4-3Vx"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outlet property="usernameTextField" destination="XOk-hf-TRc" id="3Oz-8y-vET"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="33.5" y="31.5"/>
+        </scene>
+    </scenes>
+</document>
