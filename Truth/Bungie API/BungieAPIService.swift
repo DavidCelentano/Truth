@@ -10,6 +10,7 @@ import SwiftyJSON
 import RxCocoa
 import RxSwift
 
+// API request types
 enum RequestType {
     case accountId
     case accountSummary
@@ -19,11 +20,13 @@ enum RequestType {
     case heavy
 }
 
+// Console types
 enum Console {
     case Xbox
     case PlayStation
 }
 
+// Handles all requests and data parsing from Bungie.net
 class BungieAPIService {
     
     // secret key needed for API access
@@ -37,7 +40,7 @@ class BungieAPIService {
         // once we get an account id, we want to fetch the account summary
         didSet {
             // if the accountId is not found, we clear existing data and return PNF
-            guard let id = accountId else { clearExistingData(); info.value = "Player Not Found"; return }
+            guard let id = accountId else { clearExistingData(); info.value = "⚠️ Error - Guardian Not Found 😱"; return }
             info.value = ""
             fetchAccountSummary(with: id)
         }
@@ -93,6 +96,7 @@ class BungieAPIService {
     
     // MARK: API Requests
     
+    // gather initial account Id for further calls
     func fetchAccountId(for username: String, console: Console) {
         // safetly pass the username as a query param
         let formattedUsername: String = username.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
@@ -105,10 +109,12 @@ class BungieAPIService {
         sendBungieRequest(with: "/SearchDestinyPlayer/\(consoleId)/\(formattedUsername)/", type: .accountId)
     }
     
+    // gather account data for the current account Id
     private func fetchAccountSummary(with accountId: String) {
         sendBungieRequest(with: "/\(consoleId)/Account/\(accountId)/Summary/", type: .accountSummary)
     }
     
+    // gather data on a specified item
     private func fetchItemInfo(for itemHash: String, type: RequestType) {
         sendBungieRequest(with: "/Manifest/InventoryItem/\(itemHash)", type: type)
     }
@@ -116,24 +122,27 @@ class BungieAPIService {
     
     // MARK: Parser Methods
     
+    // extract account Id
     private func parseAccountId(from data: Data) -> String? {
         let jsonData = JSON(data)
         if let membershipId = jsonData["Response"][0]["membershipId"].string {
             return membershipId
         }
-        //assertionFailure("parseAccountId: no account ID!"); return nil
         return nil
     }
     
+    // extract character stats and item hash values from account data (the hash values will be fetched for further data)
     private func parseAccountSummary(from data: Data) {
         let jsonData = JSON(data)
         // extract hours played
         if let minutesPlayed = jsonData["Response"]["data"]["characters"][0]["characterBase"]["minutesPlayedTotal"].string {
             hoursPlayed.value = String(Int(minutesPlayed)! / 60)
         }
+        // extract light level
         if let lightLevel = jsonData["Response"]["data"]["characters"][0]["characterBase"]["powerLevel"].number {
             self.lightLevel.value = String(describing: lightLevel)
         }
+        // fetch data for subclass, primary weapon, special weapon, and heavy weapon
         if let sublcass = jsonData["Response"]["data"]["characters"][0]["characterBase"]["peerView"]["equipment"][0]["itemHash"].number {
             fetchItemInfo(for: String(describing: sublcass), type: .subclass)
         }
@@ -148,6 +157,7 @@ class BungieAPIService {
         }
     }
     
+    // extract name from item data
     private func parseItemInfo(from data: Data, type: RequestType) {
         let jsonData = JSON(data)
         if let name = jsonData["Response"]["data"]["inventoryItem"]["itemName"].string {
@@ -167,6 +177,8 @@ class BungieAPIService {
     }
     
     // MARK: Helper Methods
+    
+    // clears all existing character data
     private func clearExistingData() {
         subclass.value = ""
         lightLevel.value = ""

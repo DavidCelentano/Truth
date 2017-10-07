@@ -13,11 +13,16 @@ import RxCocoa
 
 class ViewController: UIViewController {
     
+    // username label
     @IBOutlet weak var usernameTextField: UITextField!
     
-    let api = BungieAPIService()
-    let disposeBag = DisposeBag()
+    // api model object
+    private let api = BungieAPIService()
     
+    // needed for reactive variable observation
+    private let disposeBag = DisposeBag()
+    
+    // character detail outlets
     @IBOutlet weak var subclassLabel: UILabel!
     @IBOutlet weak var lightLabel: UILabel!
     @IBOutlet weak var primaryLabel: UILabel!
@@ -31,6 +36,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         setUpGradient()
+        
+        // link reactive variables from the model to the view
         api.subclass.asObservable().bind(to: subclassLabel.rx.text).disposed(by: disposeBag)
         api.lightLevel.asObservable().bind(to: lightLabel.rx.text).disposed(by: disposeBag)
         api.primary.asObservable().bind(to: primaryLabel.rx.text).disposed(by: disposeBag)
@@ -51,7 +58,9 @@ class ViewController: UIViewController {
     }
 
     @IBAction func searchTapped(_ sender: UIButton) {
+        // dismiss keyboard
         view.endEditing(true)
+        // ensure a username exists and send an api request with the appropriate console
         if let username = usernameTextField.text {
             if consoleSwitch.isOn {
                 api.fetchAccountId(for: username, console: .Xbox)
@@ -60,7 +69,7 @@ class ViewController: UIViewController {
             }
             
         }
-        // TODO else return feedback to enter a username
+        // TODO no username feedback
     }
     
 }
