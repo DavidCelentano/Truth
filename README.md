@@ -1,4 +1,4 @@
-# Truth
+# Truth for Destiny
 Destiny Companion App for iOS
 
 Author: David Celentano
