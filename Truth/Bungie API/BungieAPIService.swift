@@ -19,16 +19,26 @@ enum RequestType {
     case heavy
 }
 
+enum Console {
+    case Xbox
+    case PlayStation
+}
+
 class BungieAPIService {
     
     // secret key needed for API access
     private var secretKey: String?
     
+    // console identifier
+    private var consoleId = "1"
+    
     // key to make requests for a user
     private var accountId: String? {
         // once we get an account id, we want to fetch the account summary
         didSet {
-            guard let id = accountId else { assertionFailure("No account id"); return }
+            // if the accountId is not found, we clear existing data and return PNF
+            guard let id = accountId else { clearExistingData(); info.value = "Player Not Found"; return }
+            info.value = ""
             fetchAccountSummary(with: id)
         }
     }
@@ -40,6 +50,7 @@ class BungieAPIService {
     var special: Variable<String> = Variable("")
     var heavy: Variable<String> = Variable("")
     var hoursPlayed: Variable<String> = Variable("")
+    var info: Variable<String> = Variable("")
     
     
     init() {
@@ -82,16 +93,20 @@ class BungieAPIService {
     
     // MARK: API Requests
     
-    func fetchAccountId(for username: String) {
+    func fetchAccountId(for username: String, console: Console) {
         // safetly pass the username as a query param
         let formattedUsername: String = username.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
-        // TODO allow console swap
-        sendBungieRequest(with: "/SearchDestinyPlayer/1/\(formattedUsername)/", type: .accountId)
+        switch console {
+        case .PlayStation:
+            consoleId = "2"
+        case .Xbox:
+            consoleId = "1"
+        }
+        sendBungieRequest(with: "/SearchDestinyPlayer/\(consoleId)/\(formattedUsername)/", type: .accountId)
     }
     
     private func fetchAccountSummary(with accountId: String) {
-        // TODO allow console swap
-        sendBungieRequest(with: "/1/Account/\(accountId)/Summary/", type: .accountSummary)
+        sendBungieRequest(with: "/\(consoleId)/Account/\(accountId)/Summary/", type: .accountSummary)
     }
     
     private func fetchItemInfo(for itemHash: String, type: RequestType) {
@@ -106,7 +121,8 @@ class BungieAPIService {
         if let membershipId = jsonData["Response"][0]["membershipId"].string {
             return membershipId
         }
-        assertionFailure("parseAccountId: no account ID!"); return nil
+        //assertionFailure("parseAccountId: no account ID!"); return nil
+        return nil
     }
     
     private func parseAccountSummary(from data: Data) {
@@ -148,5 +164,15 @@ class BungieAPIService {
                 return
             }
         }
+    }
+    
+    // MARK: Helper Methods
+    private func clearExistingData() {
+        subclass.value = ""
+        lightLevel.value = ""
+        primary.value = ""
+        special.value = ""
+        heavy.value = ""
+        hoursPlayed.value = ""
     }
 }

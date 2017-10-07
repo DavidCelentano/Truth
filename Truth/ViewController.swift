@@ -24,7 +24,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var specialLabel: UILabel!
     @IBOutlet weak var heavyLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
-    @IBOutlet weak var detailStackView: UIStackView!
+    @IBOutlet weak var infoLabel: UILabel!
+    @IBOutlet weak var consoleSwitch: UISwitch!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +37,7 @@ class ViewController: UIViewController {
         api.special.asObservable().bind(to: specialLabel.rx.text).disposed(by: disposeBag)
         api.heavy.asObservable().bind(to: heavyLabel.rx.text).disposed(by: disposeBag)
         api.hoursPlayed.asObservable().bind(to: timeLabel.rx.text).disposed(by: disposeBag)
+        api.info.asObservable().bind(to: infoLabel.rx.text).disposed(by: disposeBag)
     }
     
     // creates a gradient for the view background
@@ -49,8 +51,14 @@ class ViewController: UIViewController {
     }
 
     @IBAction func searchTapped(_ sender: UIButton) {
+        view.endEditing(true)
         if let username = usernameTextField.text {
-            api.fetchAccountId(for: username)
+            if consoleSwitch.isOn {
+                api.fetchAccountId(for: username, console: .Xbox)
+            } else {
+                api.fetchAccountId(for: username, console: .PlayStation)
+            }
+            
         }
         // TODO else return feedback to enter a username
     }
