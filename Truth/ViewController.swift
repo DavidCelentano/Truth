@@ -7,18 +7,35 @@
 //
 
 import UIKit
+import SnapKit
+import RxSwift
+import RxCocoa
 
 class ViewController: UIViewController {
     
     @IBOutlet weak var usernameTextField: UITextField!
     
     let api = BungieAPIService()
-
+    let disposeBag = DisposeBag()
+    
+    @IBOutlet weak var subclassLabel: UILabel!
+    @IBOutlet weak var lightLabel: UILabel!
+    @IBOutlet weak var primaryLabel: UILabel!
+    @IBOutlet weak var specialLabel: UILabel!
+    @IBOutlet weak var heavyLabel: UILabel!
+    @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var detailStackView: UIStackView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setUpGradient()
-        print(view.layer.sublayers?.count)
+        api.subclass.asObservable().bind(to: subclassLabel.rx.text).disposed(by: disposeBag)
+        api.lightLevel.asObservable().bind(to: lightLabel.rx.text).disposed(by: disposeBag)
+        api.primary.asObservable().bind(to: primaryLabel.rx.text).disposed(by: disposeBag)
+        api.special.asObservable().bind(to: specialLabel.rx.text).disposed(by: disposeBag)
+        api.heavy.asObservable().bind(to: heavyLabel.rx.text).disposed(by: disposeBag)
+        api.hoursPlayed.asObservable().bind(to: timeLabel.rx.text).disposed(by: disposeBag)
     }
     
     // creates a gradient for the view background

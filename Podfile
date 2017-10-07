@@ -8,6 +8,8 @@ target 'Truth' do
   # Pods for Truth
   pod 'SnapKit', '~> 4.0'
   pod 'SwiftyJSON'
+  pod 'RxSwift', '4.0.0-beta.1'
+  pod 'RxCocoa', '4.0.0-beta.1'
 
   target 'TruthTests' do
     inherit! :search_paths

@@ -99,7 +99,7 @@
 				00B07D3A1F86892600DB3E59 /* Secrets.plist */,
 				00B07D151F8665A700DB3E59 /* AppDelegate.swift */,
 				00B07D171F8665A700DB3E59 /* ViewController.swift */,
-				00B07D381F8678CF00DB3E59 /* BungieAPIService.swift */,
+				00B07D3E1F89079400DB3E59 /* Bungie API */,
 				00B07D371F866B7800DB3E59 /* UI */,
 			);
 			path = Truth;
@@ -123,6 +123,14 @@
 				00B07D1E1F8665A700DB3E59 /* LaunchScreen.storyboard */,
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		00B07D3E1F89079400DB3E59 /* Bungie API */ = {
+			isa = PBXGroup;
+			children = (
+				00B07D381F8678CF00DB3E59 /* BungieAPIService.swift */,
+			);
+			path = "Bungie API";
 			sourceTree = "<group>";
 		};
 		66A44C859016956156B1B14B /* Frameworks */ = {
