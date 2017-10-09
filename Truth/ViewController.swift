@@ -41,6 +41,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var recentPlayer2Button: UIButton!
     @IBOutlet weak var recentPlayer3Button: UIButton!
     @IBOutlet weak var recentlyViewedLabel: UILabel!
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     
     
     override func viewDidLoad() {
@@ -56,6 +57,21 @@ class ViewController: UIViewController {
         api.heavy.asObservable().bind(to: heavyLabel.rx.text).disposed(by: disposeBag)
         api.hoursPlayed.asObservable().bind(to: timeLabel.rx.text).disposed(by: disposeBag)
         api.info.asObservable().bind(to: infoLabel.rx.text).disposed(by: disposeBag)
+        // start / stop animating the activity indicator when loading
+        api.isLoading.asObservable().subscribe(onNext: { isLoading in
+            if isLoading {
+                DispatchQueue.main.async {
+                    self.loadingIndicator.startAnimating()
+                }
+            }
+            else {
+                DispatchQueue.main.async {
+                    self.loadingIndicator.stopAnimating()
+                }
+            }
+        }).disposed(by: disposeBag)
+        
+        // update the recent players list for quick search
         api.recentPlayers.asObservable().subscribe(onNext: { list in
             var players = list
             players.keepLast(3)
