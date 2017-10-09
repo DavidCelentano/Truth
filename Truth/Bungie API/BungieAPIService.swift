@@ -43,7 +43,7 @@ class BungieAPIService {
         // once we get an account id, we want to fetch the account summary
         didSet {
             // if the accountId is not found, we clear existing data and return PNF
-            guard let id = accountId else { clearExistingData(); info.value = "❕Error - Guardian Not Found"; return }
+            guard let id = accountId else { clearExistingData(); isLoading.value = false; info.value = "❕Error - Guardian Not Found"; return }
             info.value = ""
             if let username = lastUsername {
                 // append last searched player to history
@@ -66,6 +66,7 @@ class BungieAPIService {
     var hoursPlayed: Variable<String> = Variable("")
     var info: Variable<String> = Variable("")
     var recentPlayers: Variable<[String]> = Variable([])
+    var isLoading: Variable<Bool> = Variable(false)
     
     
     init() {
@@ -110,6 +111,8 @@ class BungieAPIService {
     
     // gather initial account Id for further calls
     func fetchAccountId(for username: String, console: Console) {
+        // start loading state
+        isLoading.value = true
         // safetly pass the username as a query param
         let formattedUsername: String = username.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
         switch console {
@@ -177,6 +180,8 @@ class BungieAPIService {
         if let name = jsonData["Response"]["data"]["inventoryItem"]["itemName"].string {
             switch type {
             case .subclass:
+                // stop loading state
+                isLoading.value = false
                 subclass.value = name
             case .primary:
                 primary.value = name
