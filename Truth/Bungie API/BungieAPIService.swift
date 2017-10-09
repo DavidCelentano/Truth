@@ -35,6 +35,9 @@ class BungieAPIService {
     // console identifier
     private var consoleId = "1"
     
+    // last searched username for history
+    private var lastUsername: String?
+    
     // key to make requests for a user
     private var accountId: String? {
         // once we get an account id, we want to fetch the account summary
@@ -42,6 +45,14 @@ class BungieAPIService {
             // if the accountId is not found, we clear existing data and return PNF
             guard let id = accountId else { clearExistingData(); info.value = "❕Error - Guardian Not Found"; return }
             info.value = ""
+            if let username = lastUsername {
+                // append last searched player to history
+                if !recentPlayers.value.contains(username) {
+                    recentPlayers.value.append(username)
+                    // we only want 3 recent players in the history
+                    recentPlayers.value.keepLast(3)
+                }
+            }
             fetchAccountSummary(with: id)
         }
     }
@@ -54,6 +65,7 @@ class BungieAPIService {
     var heavy: Variable<String> = Variable("")
     var hoursPlayed: Variable<String> = Variable("")
     var info: Variable<String> = Variable("")
+    var recentPlayers: Variable<[String]> = Variable([])
     
     
     init() {
@@ -106,6 +118,8 @@ class BungieAPIService {
         case .Xbox:
             consoleId = "1"
         }
+        // set last searched for user for search history
+        lastUsername = formattedUsername
         sendBungieRequest(with: "/SearchDestinyPlayer/\(consoleId)/\(formattedUsername)/", type: .accountId)
     }
     

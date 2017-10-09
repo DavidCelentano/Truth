@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0019A63B1F8C121B0015C451 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0019A63A1F8C121B0015C451 /* Utilities.swift */; };
 		00B07D161F8665A700DB3E59 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B07D151F8665A700DB3E59 /* AppDelegate.swift */; };
 		00B07D181F8665A700DB3E59 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B07D171F8665A700DB3E59 /* ViewController.swift */; };
 		00B07D1B1F8665A700DB3E59 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00B07D191F8665A700DB3E59 /* Main.storyboard */; };
@@ -31,6 +32,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0019A63A1F8C121B0015C451 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		00B07D121F8665A700DB3E59 /* Truth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Truth.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		00B07D151F8665A700DB3E59 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		00B07D171F8665A700DB3E59 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 				00B07D171F8665A700DB3E59 /* ViewController.swift */,
 				00B07D3E1F89079400DB3E59 /* Bungie API */,
 				00B07D371F866B7800DB3E59 /* UI */,
+				0019A63A1F8C121B0015C451 /* Utilities.swift */,
 			);
 			path = Truth;
 			sourceTree = "<group>";
@@ -359,6 +362,7 @@
 				00B07D361F86683100DB3E59 /* UIColor+Truth.swift in Sources */,
 				00B07D181F8665A700DB3E59 /* ViewController.swift in Sources */,
 				00B07D391F8678CF00DB3E59 /* BungieAPIService.swift in Sources */,
+				0019A63B1F8C121B0015C451 /* Utilities.swift in Sources */,
 				00B07D161F8665A700DB3E59 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
