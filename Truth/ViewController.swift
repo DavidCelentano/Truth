@@ -19,6 +19,9 @@ class ViewController: UIViewController {
     // api model object
     private let api = BungieAPIService()
     
+    // tracks the current console type
+    private var console: Console = .Xbox
+    
     // needed for reactive variable observation
     private let disposeBag = DisposeBag()
     
@@ -30,7 +33,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var heavyLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var infoLabel: UILabel!
-    @IBOutlet weak var consoleSwitch: UISwitch!
+    @IBOutlet weak var consoleControl: UISegmentedControl!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,21 +60,40 @@ class ViewController: UIViewController {
         gradientLayer.locations = [0, 1.0]
         view.layer.sublayers?.insert(gradientLayer, at: 0)
     }
+    
 
+    // set the console type based on the switch
+    @IBAction func consoleChanged(_ sender: UISegmentedControl) {
+        if sender.selectedSegmentIndex == 0 {
+            console = .Xbox
+        } else {
+            console = .PlayStation
+        }
+    }
+    
     @IBAction func searchTapped(_ sender: UIButton) {
+        sendAPIRequestForUsername()
+    }
+    
+    private func sendAPIRequestForUsername() {
         // dismiss keyboard
         view.endEditing(true)
         // ensure a username exists and send an api request with the appropriate console
-        if let username = usernameTextField.text {
-            if consoleSwitch.isOn {
-                api.fetchAccountId(for: username, console: .Xbox)
-            } else {
-                api.fetchAccountId(for: username, console: .PlayStation)
-            }
-            
+        if var username = usernameTextField.text {
+            // trim any trailing whitespace for autocomplete
+            username = username.trimmingCharacters(in: .whitespaces)
+            // send the API request
+            api.fetchAccountId(for: username, console: console)
         }
-        // TODO no username feedback
     }
     
+}
+
+extension ViewController: UITextFieldDelegate {
+    // when users press return on the keyboard, start the search
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        sendAPIRequestForUsername()
+        return false
+    }
 }
 

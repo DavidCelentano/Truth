@@ -40,7 +40,7 @@ class BungieAPIService {
         // once we get an account id, we want to fetch the account summary
         didSet {
             // if the accountId is not found, we clear existing data and return PNF
-            guard let id = accountId else { clearExistingData(); info.value = "⚠️ Error - Guardian Not Found 😱"; return }
+            guard let id = accountId else { clearExistingData(); info.value = "❕Error - Guardian Not Found"; return }
             info.value = ""
             fetchAccountSummary(with: id)
         }
