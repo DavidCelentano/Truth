@@ -3,7 +3,7 @@ Destiny Companion App for iOS
 
 Author: David Celentano
 
-Release Version: 1.0
+Release Version: 1.1
 
 App Store Link: https://itunes.apple.com/us/app/truth-for-destiny/id1294016975?mt=8
 
