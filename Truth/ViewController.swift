@@ -179,7 +179,7 @@ class ViewController: UIViewController {
         // dismiss keyboard
         view.endEditing(true)
         // send API request
-        api.fetchAccountId(for: username, console: console)
+        api.fetchAccountId(for: username, console: console, destiny2Enabled: true)
     }
     
 }

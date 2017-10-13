@@ -14,6 +14,7 @@ import RxSwift
 enum RequestType {
     case accountId
     case accountSummary
+    case inventorySummary
     case subclass
     case primary
     case special
@@ -35,6 +36,9 @@ class BungieAPIService {
     // console identifier
     private var consoleId = "1"
     
+    // bool for if we're looking up D1 or D2 stats
+    private var destiny2Enabled: Bool = true
+    
     // last searched username for history
     private var lastUsername: String?
     
@@ -53,7 +57,13 @@ class BungieAPIService {
                     recentPlayers.value.keepLast(3)
                 }
             }
-            fetchAccountSummary(with: id)
+            if destiny2Enabled {
+                d2FetchAccountSummary(for: id)
+            }
+            else {
+                fetchAccountSummary(with: id)
+            }
+            
         }
     }
     
@@ -80,9 +90,9 @@ class BungieAPIService {
         }
     }
     
-    // MARK: API Request Sender
+    // MARK: Destiny 1 API
     
-    private func sendBungieRequest(with bungieAPIRequest: String, type: RequestType) {
+    private func sendDestiny1(request bungieAPIRequest: String, type: RequestType) {
         // ensure secret key exists
         guard let key = secretKey else { assertionFailure("SECRET API KEY NOT FOUND"); return }
         let session = URLSession.shared
@@ -107,37 +117,38 @@ class BungieAPIService {
         task.resume()
     }
     
-    // MARK: API Requests
-    
     // gather initial account Id for further calls
-    func fetchAccountId(for username: String, console: Console) {
+    func fetchAccountId(for username: String, console: Console, destiny2Enabled: Bool) {
         // start loading state
         isLoading.value = true
         // safetly pass the username as a query param
         let formattedUsername: String = username.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
+        // set console type
         switch console {
         case .PlayStation:
             consoleId = "2"
         case .Xbox:
             consoleId = "1"
         }
+        // set destiny version
+        self.destiny2Enabled = destiny2Enabled
         // set last searched for user for search history
         lastUsername = formattedUsername
-        sendBungieRequest(with: "/SearchDestinyPlayer/\(consoleId)/\(formattedUsername)/", type: .accountId)
+        sendDestiny1(request: "/SearchDestinyPlayer/\(consoleId)/\(formattedUsername)/", type: .accountId)
     }
     
     // gather account data for the current account Id
     private func fetchAccountSummary(with accountId: String) {
-        sendBungieRequest(with: "/\(consoleId)/Account/\(accountId)/Summary/", type: .accountSummary)
+        sendDestiny1(request: "/\(consoleId)/Account/\(accountId)/Summary/", type: .accountSummary)
     }
     
     // gather data on a specified item
     private func fetchItemInfo(for itemHash: String, type: RequestType) {
-        sendBungieRequest(with: "/Manifest/InventoryItem/\(itemHash)", type: type)
+        sendDestiny1(request: "/Manifest/InventoryItem/\(itemHash)", type: type)
     }
     
     
-    // MARK: Parser Methods
+    // MARK: Destiny 1 Parser Methods
     
     // extract account Id
     private func parseAccountId(from data: Data) -> String? {
@@ -192,6 +203,99 @@ class BungieAPIService {
             default:
                 return
             }
+        }
+    }
+    
+    // MARK: -----------------------------------------
+    
+    // MARK: Destiny 2 API
+    
+    private var d2AccountId: String?
+    
+    private func sendDestiny2(request bungieAPIRequest: String, type: RequestType) {
+        // ensure secret key exists
+        guard let key = secretKey else { assertionFailure("SECRET API KEY NOT FOUND"); return }
+        let session = URLSession.shared
+        // A request to the bungie API with a specified call: bungieRequest (an api call to bungie)
+        var request = URLRequest(url: URL(string: "http://www.bungie.net/Platform/Destiny2\(bungieAPIRequest)")!)
+        request.httpMethod = "GET"
+        request.addValue(key, forHTTPHeaderField: "X-API-Key")
+        // send request
+        let task = session.dataTask(with: request, completionHandler: { [weak self] (data, response, error) in
+            // parse data
+            if let data = data {
+                switch type {
+                case .accountSummary:
+                    self?.d2ParseAccountSummary(from: data)
+                case .inventorySummary:
+                    self?.d2ParseInventorySummary(from: data)
+                default:
+                    self?.d2ParseItemInfo(from: data, type: type)
+                }
+            }
+        })
+        task.resume()
+    }
+    
+    private func d2FetchAccountSummary(for accountId: String) {
+        d2AccountId = accountId
+        sendDestiny2(request: "/\(consoleId)/Profile/\(accountId)/?components=100,200", type: .accountSummary)
+    }
+    
+    private func d2FetchInventorySummary(for characaterId: String) {
+        guard let accountId = d2AccountId else { assertionFailure("\(#function) no id found"); return }
+        sendDestiny2(request: "/\(consoleId)/Profile/\(accountId)/character/\(characaterId)/?components=205", type: .inventorySummary)
+    }
+    
+    private func d2FetchItemInfo(for itemHash: String, type: RequestType) {
+        sendDestiny2(request: "/Manifest/DestinyInventoryItemDefinition/\(itemHash)", type: type)
+    }
+    
+    // MARK: Destiny 2 Parser Methods
+    
+    private func d2ParseAccountSummary(from data: Data) {
+        let jsonData = JSON(data)
+        guard let recentCharacterId = jsonData["Response"]["profile"]["data"]["characterIds"][0].string else { assertionFailure("\(#function) no character id"); return }
+        if let lightLevel = jsonData["Response"]["characters"]["data"][recentCharacterId]["light"].number {
+            self.lightLevel.value = String(describing: lightLevel)
+        }
+        if let minutesPlayed = jsonData["Response"]["characters"]["data"][recentCharacterId]["minutesPlayedTotal"].string {
+            hoursPlayed.value = String(Int(minutesPlayed)! / 60)
+        }
+        d2FetchInventorySummary(for: recentCharacterId)
+    }
+    
+    private func d2ParseInventorySummary(from data: Data) {
+        let jsonData = JSON(data)
+        if let primaryHash = jsonData["Response"]["equipment"]["data"]["items"][0]["itemHash"].number {
+            d2FetchItemInfo(for: String(describing: primaryHash), type: .primary)
+        }
+        if let specialHash = jsonData["Response"]["equipment"]["data"]["items"][1]["itemHash"].number {
+            d2FetchItemInfo(for: String(describing: specialHash), type: .special)
+        }
+        if let heavyHash = jsonData["Response"]["equipment"]["data"]["items"][2]["itemHash"].number {
+            d2FetchItemInfo(for: String(describing: heavyHash), type: .heavy)
+        }
+        if let subclassHash = jsonData["Response"]["equipment"]["data"]["items"][11]["itemHash"].number {
+            d2FetchItemInfo(for: String(describing: subclassHash), type: .subclass)
+        }
+    }
+    
+    private func d2ParseItemInfo(from data: Data, type: RequestType) {
+        let jsonData = JSON(data)
+        guard let itemName = jsonData["Response"]["displayProperties"]["name"].string else { return }
+        guard let itemType = jsonData["Response"]["itemTypeDisplayName"].string else { return }
+        switch type {
+        case .subclass:
+            subclass.value = itemType.split(separator: " ").first! + " - " + itemName
+        case .primary:
+            primary.value = itemName + " - " + itemType
+        case .special:
+            special.value = itemName + " - " + itemType
+        case .heavy:
+            heavy.value = itemName + " - " + itemType
+        default:
+            return
         }
     }
     
