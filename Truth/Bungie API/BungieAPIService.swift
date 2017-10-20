@@ -25,6 +25,7 @@ enum RequestType {
 enum Console {
     case Xbox
     case PlayStation
+    case PC
 }
 
 // Handles all requests and data parsing from Bungie.net
@@ -129,6 +130,8 @@ class BungieAPIService {
             consoleId = "2"
         case .Xbox:
             consoleId = "1"
+        case .PC:
+            consoleId = "4"
         }
         // set destiny version
         self.destiny2Enabled = destiny2Enabled
@@ -255,7 +258,7 @@ class BungieAPIService {
     
     private func d2ParseAccountSummary(from data: Data) {
         let jsonData = JSON(data)
-        guard let recentCharacterId = jsonData["Response"]["profile"]["data"]["characterIds"][0].string else { assertionFailure("\(#function) no character id"); return }
+        guard let recentCharacterId = jsonData["Response"]["profile"]["data"]["characterIds"][0].string else { info.value = "❕Error - Guardian Not Found"; return }
         if let lightLevel = jsonData["Response"]["characters"]["data"][recentCharacterId]["light"].number {
             self.lightLevel.value = String(describing: lightLevel)
         }
@@ -287,13 +290,13 @@ class BungieAPIService {
         guard let itemType = jsonData["Response"]["itemTypeDisplayName"].string else { return }
         switch type {
         case .subclass:
-            subclass.value = itemType.split(separator: " ").first! + " - " + itemName
+            subclass.value = itemType.split(separator: " ").first! + " | " + itemName
         case .primary:
-            primary.value = itemName + " - " + itemType
+            primary.value = itemName + " | " + itemType
         case .special:
-            special.value = itemName + " - " + itemType
+            special.value = itemName + " | " + itemType
         case .heavy:
-            heavy.value = itemName + " - " + itemType
+            heavy.value = itemName + " | " + itemType
         default:
             return
         }
