@@ -195,18 +195,21 @@ class ViewController: UIViewController {
         let b = UIButton()
         b.setTitleColor(UIColor.white, for: .normal)
         b.addTarget(self, action: #selector(recentPlayer1Tapped), for: .touchUpInside)
+        b.setTitleColor(UIColor.white.withAlphaComponent(0.5), for: .highlighted)
         return b
     }()
     private var recentPlayer2Button: UIButton = {
         let b = UIButton()
         b.setTitleColor(UIColor.white, for: .normal)
         b.addTarget(self, action: #selector(recentPlayer2Tapped), for: .touchUpInside)
+        b.setTitleColor(UIColor.white.withAlphaComponent(0.5), for: .highlighted)
         return b
     }()
     private var recentPlayer3Button: UIButton = {
         let b = UIButton()
         b.setTitleColor(UIColor.white, for: .normal)
         b.addTarget(self, action: #selector(recentPlayer3Tapped), for: .touchUpInside)
+        b.setTitleColor(UIColor.white.withAlphaComponent(0.5), for: .highlighted)
         return b
     }()
     
