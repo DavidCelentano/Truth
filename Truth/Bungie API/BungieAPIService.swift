@@ -25,6 +25,7 @@ enum RequestType {
 enum Console {
     case Xbox
     case PlayStation
+    case PC
 }
 
 // Handles all requests and data parsing from Bungie.net
@@ -47,7 +48,7 @@ class BungieAPIService {
         // once we get an account id, we want to fetch the account summary
         didSet {
             // if the accountId is not found, we clear existing data and return PNF
-            guard let id = accountId else { clearExistingData(); isLoading.value = false; info.value = "❕Error - Guardian Not Found"; return }
+            guard let id = accountId else { guardianNotFound(); return }
             info.value = ""
             if let username = lastUsername {
                 // append last searched player to history
@@ -129,6 +130,8 @@ class BungieAPIService {
             consoleId = "2"
         case .Xbox:
             consoleId = "1"
+        case .PC:
+            consoleId = "4"
         }
         // set destiny version
         self.destiny2Enabled = destiny2Enabled
@@ -255,7 +258,7 @@ class BungieAPIService {
     
     private func d2ParseAccountSummary(from data: Data) {
         let jsonData = JSON(data)
-        guard let recentCharacterId = jsonData["Response"]["profile"]["data"]["characterIds"][0].string else { assertionFailure("\(#function) no character id"); return }
+        guard let recentCharacterId = jsonData["Response"]["profile"]["data"]["characterIds"][0].string else { guardianNotFound(); return }
         if let lightLevel = jsonData["Response"]["characters"]["data"][recentCharacterId]["light"].number {
             self.lightLevel.value = String(describing: lightLevel)
         }
@@ -287,13 +290,15 @@ class BungieAPIService {
         guard let itemType = jsonData["Response"]["itemTypeDisplayName"].string else { return }
         switch type {
         case .subclass:
-            subclass.value = itemType.split(separator: " ").first! + " - " + itemName
+            subclass.value = itemType.split(separator: " ").first! + " | " + itemName
         case .primary:
-            primary.value = itemName + " - " + itemType
+            // stop loading state
+            isLoading.value = false
+            primary.value = itemName + " | " + itemType
         case .special:
-            special.value = itemName + " - " + itemType
+            special.value = itemName + " | " + itemType
         case .heavy:
-            heavy.value = itemName + " - " + itemType
+            heavy.value = itemName + " | " + itemType
         default:
             return
         }
@@ -302,7 +307,9 @@ class BungieAPIService {
     // MARK: Helper Methods
     
     // clears all existing character data
-    private func clearExistingData() {
+    private func guardianNotFound() {
+        info.value = "❕Guardian Not Found"
+        isLoading.value = false
         subclass.value = ""
         lightLevel.value = ""
         primary.value = ""
