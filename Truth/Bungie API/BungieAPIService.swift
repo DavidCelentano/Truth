@@ -48,7 +48,7 @@ class BungieAPIService {
         // once we get an account id, we want to fetch the account summary
         didSet {
             // if the accountId is not found, we clear existing data and return PNF
-            guard let id = accountId else { clearExistingData(); isLoading.value = false; info.value = "❕Error - Guardian Not Found"; return }
+            guard let id = accountId else { guardianNotFound(); return }
             info.value = ""
             if let username = lastUsername {
                 // append last searched player to history
@@ -258,7 +258,7 @@ class BungieAPIService {
     
     private func d2ParseAccountSummary(from data: Data) {
         let jsonData = JSON(data)
-        guard let recentCharacterId = jsonData["Response"]["profile"]["data"]["characterIds"][0].string else { info.value = "❕Error - Guardian Not Found"; return }
+        guard let recentCharacterId = jsonData["Response"]["profile"]["data"]["characterIds"][0].string else { guardianNotFound(); return }
         if let lightLevel = jsonData["Response"]["characters"]["data"][recentCharacterId]["light"].number {
             self.lightLevel.value = String(describing: lightLevel)
         }
@@ -292,6 +292,8 @@ class BungieAPIService {
         case .subclass:
             subclass.value = itemType.split(separator: " ").first! + " | " + itemName
         case .primary:
+            // stop loading state
+            isLoading.value = false
             primary.value = itemName + " | " + itemType
         case .special:
             special.value = itemName + " | " + itemType
@@ -305,7 +307,9 @@ class BungieAPIService {
     // MARK: Helper Methods
     
     // clears all existing character data
-    private func clearExistingData() {
+    private func guardianNotFound() {
+        info.value = "❕Error - Guardian Not Found"
+        isLoading.value = false
         subclass.value = ""
         lightLevel.value = ""
         primary.value = ""

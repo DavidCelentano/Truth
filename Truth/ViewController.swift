@@ -20,6 +20,7 @@ class ViewController: UIViewController {
         t.backgroundColor = UIColor.white
         t.borderStyle = .roundedRect
         t.autocapitalizationType = .none
+        t.clearButtonMode = .always
         return t
     }()
     
@@ -38,7 +39,7 @@ class ViewController: UIViewController {
         return b
     }()
     
-    private var consoleLabel: UILabel = {
+    private var platformLabel: UILabel = {
         let l = UILabel()
         l.textColor = UIColor.white
         l.numberOfLines = 0
@@ -51,8 +52,10 @@ class ViewController: UIViewController {
         s.tintColor = UIColor.white
         s.insertSegment(withTitle: "Xbox", at: 0, animated: false)
         s.insertSegment(withTitle: "PS", at: 1, animated: false)
-        s.insertSegment(withTitle: "PC", at: 2, animated: false)
+//PC*        s.insertSegment(withTitle: "PC", at: 2, animated: false)
         s.selectedSegmentIndex = 0
+        s.setWidth(50.0, forSegmentAt: 0)
+        s.setWidth(50.0, forSegmentAt: 1)
         s.addTarget(self, action: #selector(platformChanged), for: UIControlEvents.valueChanged)
         return s
     }()
@@ -75,6 +78,13 @@ class ViewController: UIViewController {
         s.setWidth(50.0, forSegmentAt: 1)
         s.addTarget(self, action: #selector(versionChanged), for: UIControlEvents.valueChanged)
         return s
+    }()
+    
+    private var loadingIndicator: UIActivityIndicatorView = {
+        let i = UIActivityIndicatorView()
+        i.activityIndicatorViewStyle = .white
+        i.hidesWhenStopped = true
+        return i
     }()
     
     // api model object
@@ -177,6 +187,7 @@ class ViewController: UIViewController {
         let l = UILabel()
         l.textColor = UIColor.white
         l.numberOfLines = 0
+        l.textAlignment = .center
         l.isHidden = true
         return l
     }()
@@ -211,12 +222,12 @@ class ViewController: UIViewController {
         usernameTextField.delegate = self
         
         // setup header labels
-        subclassHeaderLabel.text = "Class | Subclass"
-        primaryHeaderLabel.text = "Primary Weapon"
-        specialHeaderLabel.text = "Special Weapon"
-        heavyHeaderLabel.text = "Heavy Weapon"
-        lightLevelHeaderLabel.text = "Light Level"
-        timePlayedHeaderLabel.text = "Hours Played"
+        subclassHeaderLabel.text = "Class | Subclass:"
+        primaryHeaderLabel.text = "Primary Weapon:"
+        specialHeaderLabel.text = "Special Weapon:"
+        heavyHeaderLabel.text = "Heavy Weapon:"
+        lightLevelHeaderLabel.text = "Light Level:"
+        timePlayedHeaderLabel.text = "Hours Played:"
         recentPlayersHeaderLabel.text = "Quick Search"
         
         // setup horizontal stack views
@@ -264,7 +275,7 @@ class ViewController: UIViewController {
         recentPlayersStackView.spacing = 15
         recentPlayersStackView.distribution = .equalSpacing
         
-        let consoleStackView = UIStackView(arrangedSubviews: [consoleLabel, platformSwitch])
+        let consoleStackView = UIStackView(arrangedSubviews: [platformLabel, platformSwitch])
         consoleStackView.alignment = .center
         consoleStackView.axis = .vertical
         consoleStackView.spacing = 10
@@ -304,6 +315,14 @@ class ViewController: UIViewController {
             make.top.equalTo(usernameLabel.snp.bottom).offset(10)
         }
         
+        scrollView.addSubview(loadingIndicator)
+        loadingIndicator.snp.makeConstraints { make in
+            make.centerY.equalTo(usernameTextField)
+            make.trailing.equalTo(usernameTextField.snp.leading).offset(-10)
+            make.height.equalTo(34)
+            make.width.equalTo(34)
+        }
+        
         scrollView.addSubview(searchButton)
         searchButton.snp.makeConstraints { make in
             make.leading.equalTo(usernameTextField.snp.trailing).offset(10)
@@ -332,30 +351,52 @@ class ViewController: UIViewController {
             make.top.equalTo(statsStackView.snp.bottom).offset(15)
             make.centerX.equalTo(scrollView)
             make.bottom.equalTo(scrollView).offset(-20)
+            make.width.equalTo(160)
         }
         
 
         // link reactive variables from the model to the view
-        api.subclass.asObservable().bind(to: subclassDetailLabel.rx.text).disposed(by: disposeBag)
-        api.lightLevel.asObservable().bind(to: lightLevelDetailLabel.rx.text).disposed(by: disposeBag)
-        api.primary.asObservable().bind(to: primaryDetailLabel.rx.text).disposed(by: disposeBag)
-        api.special.asObservable().bind(to: specialDetailLabel.rx.text).disposed(by: disposeBag)
-        api.heavy.asObservable().bind(to: heavyDetailLabel.rx.text).disposed(by: disposeBag)
-        api.hoursPlayed.asObservable().bind(to: timePlayedDetailLabel.rx.text).disposed(by: disposeBag)
-        api.info.asObservable().bind(to: infoLabel.rx.text).disposed(by: disposeBag)
+        api.subclass.asObservable().do(onNext: { string in
+            DispatchQueue.main.async {
+                self.subclassHeaderLabel.isHidden = !(string.count > 0)
+            }}).bind(to: subclassDetailLabel.rx.text).disposed(by: disposeBag)
+        api.lightLevel.asObservable().do(onNext: { string in
+            DispatchQueue.main.async {
+                self.lightLevelHeaderLabel.isHidden = !(string.count > 0)
+            }}).bind(to: lightLevelDetailLabel.rx.text).disposed(by: disposeBag)
+        api.primary.asObservable().do(onNext: { string in
+            DispatchQueue.main.async {
+                self.primaryHeaderLabel.isHidden = !(string.count > 0)
+            }}).bind(to: primaryDetailLabel.rx.text).disposed(by: disposeBag)
+        api.special.asObservable().do(onNext: { string in
+            DispatchQueue.main.async {
+                self.specialHeaderLabel.isHidden = !(string.count > 0)
+            }}).bind(to: specialDetailLabel.rx.text).disposed(by: disposeBag)
+        api.heavy.asObservable().do(onNext: { string in
+            DispatchQueue.main.async {
+                self.heavyHeaderLabel.isHidden = !(string.count > 0)
+            }}).bind(to: heavyDetailLabel.rx.text).disposed(by: disposeBag)
+        api.hoursPlayed.asObservable().do(onNext: { string in
+            DispatchQueue.main.async {
+                self.timePlayedHeaderLabel.isHidden = !(string.count > 0)
+            }}).bind(to: timePlayedDetailLabel.rx.text).disposed(by: disposeBag)
+        api.info.asObservable().do(onNext: { string in
+            DispatchQueue.main.async {
+                self.infoLabel.isHidden = !(string.count > 0)
+            }}).bind(to: infoLabel.rx.text).disposed(by: disposeBag)
         // start / stop animating the activity indicator when loading
-//        api.isLoading.asObservable().subscribe(onNext: { isLoading in
-//            if isLoading {
-//                DispatchQueue.main.async {
-//                    self.loadingIndicator.startAnimating()
-//                }
-//            }
-//            else {
-//                DispatchQueue.main.async {
-//                    self.loadingIndicator.stopAnimating()
-//                }
-//            }
-//        }).disposed(by: disposeBag)
+        api.isLoading.asObservable().subscribe(onNext: { isLoading in
+            if isLoading {
+                DispatchQueue.main.async {
+                    self.loadingIndicator.startAnimating()
+                }
+            }
+            else {
+                DispatchQueue.main.async {
+                    self.loadingIndicator.stopAnimating()
+                }
+            }
+        }).disposed(by: disposeBag)
         
         // update the recent players list for quick search
         api.recentPlayers.asObservable().subscribe(onNext: { list in
@@ -408,7 +449,7 @@ class ViewController: UIViewController {
         } else if platformSwitch.selectedSegmentIndex == 1 {
             console = .PlayStation
         } else {
-            console = .PC
+            assertionFailure("PC Not Enabled")//console = .PC
         }
         if var username = usernameTextField.text {
             // trim any trailing whitespace for autocomplete
