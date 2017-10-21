@@ -221,6 +221,10 @@ class ViewController: UIViewController {
         
         usernameTextField.delegate = self
         
+        // set fonts
+        usernameLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        recentPlayersHeaderLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        
         // setup header labels
         subclassHeaderLabel.text = "Class | Subclass:"
         primaryHeaderLabel.text = "Primary Weapon:"

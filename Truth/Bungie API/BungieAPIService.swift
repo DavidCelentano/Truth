@@ -308,7 +308,7 @@ class BungieAPIService {
     
     // clears all existing character data
     private func guardianNotFound() {
-        info.value = "❕Error - Guardian Not Found"
+        info.value = "❕Guardian Not Found"
         isLoading.value = false
         subclass.value = ""
         lightLevel.value = ""
