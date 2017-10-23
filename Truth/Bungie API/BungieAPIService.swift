@@ -136,7 +136,7 @@ class BungieAPIService {
         // set destiny version
         self.destiny2Enabled = destiny2Enabled
         // set last searched for user for search history
-        lastUsername = formattedUsername
+        lastUsername = username
         sendDestiny1(request: "/SearchDestinyPlayer/\(consoleId)/\(formattedUsername)/", type: .accountId)
     }
     
@@ -165,10 +165,12 @@ class BungieAPIService {
     // extract character stats and item hash values from account data (the hash values will be fetched for further data)
     private func parseAccountSummary(from data: Data) {
         let jsonData = JSON(data)
-        // extract hours played
-        if let minutesPlayed = jsonData["Response"]["data"]["characters"][0]["characterBase"]["minutesPlayedTotal"].string {
-            hoursPlayed.value = String(Int(minutesPlayed)! / 60)
+        // extract hours played, if we can't find it, we throw an error since something has gone poorly
+        guard let minutesPlayed = jsonData["Response"]["data"]["characters"][0]["characterBase"]["minutesPlayedTotal"].string else {
+            guardianNotFound(); return
         }
+        // else set the hours played and proceed since we probably have the rest of the data
+        hoursPlayed.value = String(Int(minutesPlayed)! / 60)
         // extract light level
         if let lightLevel = jsonData["Response"]["data"]["characters"][0]["characterBase"]["powerLevel"].number {
             self.lightLevel.value = String(describing: lightLevel)
