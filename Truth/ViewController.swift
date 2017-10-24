@@ -24,13 +24,7 @@ class ViewController: UIViewController {
         return t
     }()
     
-    private var usernameLabel: UILabel = {
-        let l = UILabel()
-        l.textColor = UIColor.white
-        l.numberOfLines = 0
-        l.text = "Enter a username"
-        return l
-    }()
+    private var usernameLabel = UILabel.whiteLabel()
     
     private var searchButton: UIButton = {
        let b = UIButton()
@@ -52,10 +46,11 @@ class ViewController: UIViewController {
         s.tintColor = UIColor.white
         s.insertSegment(withTitle: "Xbox", at: 0, animated: false)
         s.insertSegment(withTitle: "PS", at: 1, animated: false)
-//PC*        s.insertSegment(withTitle: "PC", at: 2, animated: false)
+        s.insertSegment(withTitle: "PC", at: 2, animated: false)
         s.selectedSegmentIndex = 0
         s.setWidth(50.0, forSegmentAt: 0)
         s.setWidth(50.0, forSegmentAt: 1)
+        s.setWidth(50.0, forSegmentAt: 2)
         s.addTarget(self, action: #selector(platformChanged), for: UIControlEvents.valueChanged)
         return s
     }()
@@ -104,81 +99,21 @@ class ViewController: UIViewController {
     
     // character detail outlets
     // TODO subclass uilabel to make a custom one
-    private var subclassHeaderLabel: UILabel = {
-        let l = UILabel()
-        l.textColor = UIColor.white
-        l.numberOfLines = 0
-        return l
-    }()
-    private var subclassDetailLabel: UILabel = {
-        let l = UILabel()
-        l.textColor = UIColor.white
-        l.numberOfLines = 0
-        return l
-    }()
-    private var primaryHeaderLabel: UILabel = {
-        let l = UILabel()
-        l.textColor = UIColor.white
-        l.numberOfLines = 0
-        return l
-    }()
-    private var primaryDetailLabel: UILabel = {
-        let l = UILabel()
-        l.textColor = UIColor.white
-        l.numberOfLines = 0
-        return l
-    }()
-    private var specialHeaderLabel: UILabel = {
-        let l = UILabel()
-        l.textColor = UIColor.white
-        l.numberOfLines = 0
-        return l
-    }()
-    private var specialDetailLabel: UILabel = {
-        let l = UILabel()
-        l.textColor = UIColor.white
-        l.numberOfLines = 0
-        return l
-    }()
-    private var heavyHeaderLabel: UILabel = {
-        let l = UILabel()
-        l.textColor = UIColor.white
-        l.numberOfLines = 0
-        return l
-    }()
-    private var heavyDetailLabel: UILabel = {
-        let l = UILabel()
-        l.textColor = UIColor.white
-        l.numberOfLines = 0
-        return l
-    }()
-    private var lightLevelHeaderLabel: UILabel = {
-        let l = UILabel()
-        l.textColor = UIColor.white
-        l.numberOfLines = 0
-        return l
-    }()
-    private var lightLevelDetailLabel: UILabel = {
-        let l = UILabel()
-        l.textColor = UIColor.white
-        l.numberOfLines = 0
-        return l
-    }()
-    private var timePlayedHeaderLabel: UILabel = {
-        let l = UILabel()
-        l.textColor = UIColor.white
-        l.numberOfLines = 0
-        return l
-    }()
-    private var timePlayedDetailLabel: UILabel = {
-        let l = UILabel()
-        l.textColor = UIColor.white
-        l.numberOfLines = 0
-        return l
-    }()
+    private var subclassHeaderLabel = UILabel.whiteLabel()
+    private var subclassDetailLabel = UILabel.whiteLabel()
+    private var primaryHeaderLabel = UILabel.whiteLabel()
+    private var primaryDetailLabel = UILabel.whiteLabel()
+    private var specialHeaderLabel = UILabel.whiteLabel()
+    private var specialDetailLabel = UILabel.whiteLabel()
+    private var heavyHeaderLabel = UILabel.whiteLabel()
+    private var heavyDetailLabel = UILabel.whiteLabel()
+    private var lightLevelHeaderLabel = UILabel.whiteLabel()
+    private var lightLevelDetailLabel = UILabel.whiteLabel()
+    private var timePlayedHeaderLabel = UILabel.whiteLabel()
+    private var timePlayedDetailLabel = UILabel.whiteLabel()
     private var infoLabel: UILabel = {
         let l = UILabel()
-        l.textColor = UIColor.white
+        l.textColor = UIColor.orange
         l.numberOfLines = 0
         return l
     }()
@@ -216,6 +151,10 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var scrollView: UIScrollView!
   
+    // set status bar to white
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -225,8 +164,9 @@ class ViewController: UIViewController {
         usernameTextField.delegate = self
         
         // set fonts
-        usernameLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        usernameLabel.text = "Enter a username"
         recentPlayersHeaderLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        infoLabel.font = UIFont.boldSystemFont(ofSize: 16)
         
         // setup header labels
         subclassHeaderLabel.text = "Class | Subclass:"
@@ -456,7 +396,7 @@ class ViewController: UIViewController {
         } else if platformSwitch.selectedSegmentIndex == 1 {
             console = .PlayStation
         } else {
-            assertionFailure("PC Not Enabled")//console = .PC
+            console = .PC
         }
         if var username = usernameTextField.text {
             // trim any trailing whitespace for autocomplete

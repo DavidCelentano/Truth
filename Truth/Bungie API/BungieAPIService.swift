@@ -48,7 +48,7 @@ class BungieAPIService {
         // once we get an account id, we want to fetch the account summary
         didSet {
             // if the accountId is not found, we clear existing data and return PNF
-            guard let id = accountId else { guardianNotFound(); return }
+            guard let id = accountId else { returnError(with: "❕Guardian Not Found"); return }
             info.value = ""
             if let username = lastUsername {
                 // append last searched player to history
@@ -167,7 +167,7 @@ class BungieAPIService {
         let jsonData = JSON(data)
         // extract hours played, if we can't find it, we throw an error since something has gone poorly
         guard let minutesPlayed = jsonData["Response"]["data"]["characters"][0]["characterBase"]["minutesPlayedTotal"].string else {
-            guardianNotFound(); return
+            returnError(with: "No Destiny 1 stats found for this Guardian"); return
         }
         // else set the hours played and proceed since we probably have the rest of the data
         hoursPlayed.value = String(Int(minutesPlayed)! / 60)
@@ -260,7 +260,7 @@ class BungieAPIService {
     
     private func d2ParseAccountSummary(from data: Data) {
         let jsonData = JSON(data)
-        guard let recentCharacterId = jsonData["Response"]["profile"]["data"]["characterIds"][0].string else { guardianNotFound(); return }
+        guard let recentCharacterId = jsonData["Response"]["profile"]["data"]["characterIds"][0].string else { returnError(with: "No Destiny 2 stats found for this Guardian"); return }
         if let lightLevel = jsonData["Response"]["characters"]["data"][recentCharacterId]["light"].number {
             self.lightLevel.value = String(describing: lightLevel)
         }
@@ -309,8 +309,8 @@ class BungieAPIService {
     // MARK: Helper Methods
     
     // clears all existing character data
-    private func guardianNotFound() {
-        info.value = "❕Guardian Not Found"
+  private func returnError(with message: String) {
+        info.value = message
         isLoading.value = false
         subclass.value = ""
         lightLevel.value = ""
