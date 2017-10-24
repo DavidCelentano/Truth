@@ -137,7 +137,12 @@ class BungieAPIService {
         self.destiny2Enabled = destiny2Enabled
         // set last searched for user for search history
         lastUsername = username
-        sendDestiny1(request: "/SearchDestinyPlayer/\(consoleId)/\(formattedUsername)/", type: .accountId)
+        if destiny2Enabled {
+            sendDestiny2(request: "/SearchDestinyPlayer/\(consoleId)/\(formattedUsername)/", type: .accountId)
+        }
+        else {
+            sendDestiny1(request: "/SearchDestinyPlayer/\(consoleId)/\(formattedUsername)/", type: .accountId)
+        }
     }
     
     // gather account data for the current account Id
@@ -230,6 +235,8 @@ class BungieAPIService {
             // parse data
             if let data = data {
                 switch type {
+                case .accountId:
+                    self?.accountId = self?.parseAccountId(from: data)
                 case .accountSummary:
                     self?.d2ParseAccountSummary(from: data)
                 case .inventorySummary:
