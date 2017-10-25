@@ -164,7 +164,7 @@ class ViewController: UIViewController {
         usernameTextField.delegate = self
         
         // set fonts
-        usernameLabel.text = "Enter a username"
+        usernameLabel.text = "Enter a gamertag"
         recentPlayersHeaderLabel.font = UIFont.boldSystemFont(ofSize: 16)
         infoLabel.font = UIFont.boldSystemFont(ofSize: 16)
         
