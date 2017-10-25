@@ -47,7 +47,7 @@ class ViewController: UIViewController {
         s.insertSegment(withTitle: "Xbox", at: 0, animated: false)
         s.insertSegment(withTitle: "PS", at: 1, animated: false)
         s.insertSegment(withTitle: "PC", at: 2, animated: false)
-        s.selectedSegmentIndex = 0
+        s.selectedSegmentIndex = UserDefaults.standard.value(forKey: "platform") as? Int ?? 0
         s.setWidth(50.0, forSegmentAt: 0)
         s.setWidth(50.0, forSegmentAt: 1)
         s.setWidth(50.0, forSegmentAt: 2)
@@ -68,7 +68,7 @@ class ViewController: UIViewController {
         s.tintColor = UIColor.white
         s.insertSegment(withTitle: "1", at: 0, animated: false)
         s.insertSegment(withTitle: "2", at: 1, animated: false)
-        s.selectedSegmentIndex = 1
+        s.selectedSegmentIndex = UserDefaults.standard.value(forKey: "version") as? Int ?? 1
         s.setWidth(50.0, forSegmentAt: 0)
         s.setWidth(50.0, forSegmentAt: 1)
         s.addTarget(self, action: #selector(versionChanged), for: UIControlEvents.valueChanged)
@@ -391,6 +391,7 @@ class ViewController: UIViewController {
     }
     
     @objc func platformChanged() {
+        UserDefaults.standard.set(platformSwitch.selectedSegmentIndex, forKey: "platform")
         if platformSwitch.selectedSegmentIndex == 0 {
             console = .Xbox
         } else if platformSwitch.selectedSegmentIndex == 1 {
@@ -407,6 +408,7 @@ class ViewController: UIViewController {
     }
     
     @objc func versionChanged() {
+        UserDefaults.standard.set(versionSwitch.selectedSegmentIndex, forKey: "version")
         if versionSwitch.selectedSegmentIndex == 0 {
             destiny2Enabled = false
         } else {
