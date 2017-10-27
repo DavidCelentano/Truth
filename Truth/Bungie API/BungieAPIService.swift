@@ -19,6 +19,7 @@ enum RequestType {
     case primary
     case special
     case heavy
+    case performanceStats(isCurrent: Bool)
 }
 
 // Console types
@@ -75,6 +76,14 @@ class BungieAPIService {
     var special: Variable<String> = Variable("")
     var heavy: Variable<String> = Variable("")
     var hoursPlayed: Variable<String> = Variable("")
+    var currentKD: Variable<String> = Variable("")
+    var currentKDA: Variable<String> = Variable("")
+    var currentBestWeaponType: Variable<String> = Variable("")
+    var currentCombatRating: Variable<String> = Variable("")
+    var overallCombatRating: Variable<String> = Variable("")
+    var overallWinLossRatio: Variable<String> = Variable("")
+    var overallKD: Variable<String> = Variable("")
+    var overallKDA: Variable<String> = Variable("")
     var info: Variable<String> = Variable("")
     var recentPlayers: Variable<[String]> = Variable([])
     var isLoading: Variable<Bool> = Variable(false)
@@ -110,6 +119,8 @@ class BungieAPIService {
                     self?.accountId = self?.parseAccountId(from: data)
                 case .accountSummary:
                     self?.parseAccountSummary(from: data)
+                case .performanceStats:
+                    assertionFailure("Not set up yet"); return
                 default:
                     self?.parseItemInfo(from: data, type: type)
                 }
@@ -221,6 +232,7 @@ class BungieAPIService {
     // MARK: Destiny 2 API
     
     private var d2AccountId: String?
+    private var d2CharacterIds: [String]?
     
     private func sendDestiny2(request bungieAPIRequest: String, type: RequestType) {
         // ensure secret key exists
@@ -241,6 +253,8 @@ class BungieAPIService {
                     self?.d2ParseAccountSummary(from: data)
                 case .inventorySummary:
                     self?.d2ParseInventorySummary(from: data)
+                case .performanceStats(let isCurrent):
+                    self?.d2ParsePerformanceStats(from: data, isCurrent: isCurrent)
                 default:
                     self?.d2ParseItemInfo(from: data, type: type)
                 }
@@ -263,18 +277,42 @@ class BungieAPIService {
         sendDestiny2(request: "/Manifest/DestinyInventoryItemDefinition/\(itemHash)", type: type)
     }
     
+    private func d2FetchPerformanceStats(for characters: [String]) {
+        guard let accountId = d2AccountId else { assertionFailure("\(#function) no id found"); return }
+        guard let characterIds = d2CharacterIds else { assertionFailure("\(#function) no charIds found"); return }
+        // send a request for each char id to get performance stats
+        for charId in characterIds {
+            sendDestiny2(request: "/\(consoleId)/Account/\(accountId)/Character/\(charId)/Stats/", type: .performanceStats(isCurrent: charId == characterIds.first))
+        }
+    }
+    
     // MARK: Destiny 2 Parser Methods
     
     private func d2ParseAccountSummary(from data: Data) {
         let jsonData = JSON(data)
-        guard let recentCharacterId = jsonData["Response"]["profile"]["data"]["characterIds"][0].string else { returnError(with: "No Destiny 2 stats found for this Guardian"); return }
-        if let lightLevel = jsonData["Response"]["characters"]["data"][recentCharacterId]["light"].number {
+        // an account must have at least one character to be valid
+        guard let firstCharId = jsonData["Response"]["profile"]["data"]["characterIds"][0].string else { returnError(with: "No Destiny 2 stats found for this Guardian"); return }
+        // ensure character list is clear
+        d2CharacterIds = []
+        d2CharacterIds?.append(firstCharId)
+        // search for other characters if they exist to average certain stats across the account
+        if let secondCharId = jsonData["Response"]["profile"]["data"]["characterIds"][1].string {
+            d2CharacterIds?.append(secondCharId)
+        }
+        if let thirdCharId = jsonData["Response"]["profile"]["data"]["characterIds"][2].string {
+            d2CharacterIds?.append(thirdCharId)
+        }
+        // extract time played and light level from the most recent character
+        if let lightLevel = jsonData["Response"]["characters"]["data"][firstCharId]["light"].number {
             self.lightLevel.value = String(describing: lightLevel)
         }
-        if let minutesPlayed = jsonData["Response"]["characters"]["data"][recentCharacterId]["minutesPlayedTotal"].string {
+        if let minutesPlayed = jsonData["Response"]["characters"]["data"][firstCharId]["minutesPlayedTotal"].string {
             hoursPlayed.value = String(Int(minutesPlayed)! / 60)
         }
-        d2FetchInventorySummary(for: recentCharacterId)
+        // fetch inventory for the most recent character
+        d2FetchInventorySummary(for: firstCharId)
+        // fetch performance stats for all characters
+        d2FetchPerformanceStats(for: d2CharacterIds!)
     }
     
     private func d2ParseInventorySummary(from data: Data) {
@@ -295,8 +333,8 @@ class BungieAPIService {
     
     private func d2ParseItemInfo(from data: Data, type: RequestType) {
         let jsonData = JSON(data)
-        guard let itemName = jsonData["Response"]["displayProperties"]["name"].string else { return }
-        guard let itemType = jsonData["Response"]["itemTypeDisplayName"].string else { return }
+        guard let itemName = jsonData["Response"]["displayProperties"]["name"].string else { assertionFailure("stat not found"); return }
+        guard let itemType = jsonData["Response"]["itemTypeDisplayName"].string else { assertionFailure("stat not found"); return }
         switch type {
         case .subclass:
             subclass.value = itemType.split(separator: " ").first! + " | " + itemName
@@ -313,10 +351,60 @@ class BungieAPIService {
         }
     }
     
+    private var kdTotal: Double = 0
+    private var kdaTotal: Double = 0
+    private var winLossTotal: Double = 0
+    private var combatRatingTotal: Double = 0
+    private var statsFound: Int = 0
+    
+    private func d2ParsePerformanceStats(from data: Data, isCurrent: Bool) {
+        let jsonData = JSON(data)
+        guard let kd = jsonData["Response"]["allPvP"]["allTime"]["killsDeathsRatio"]["basic"]["value"].number else { if statsFound > 0 { computeAverages() }; return }
+        kdTotal += Double(truncating: kd)
+        guard let kda = jsonData["Response"]["allPvP"]["allTime"]["killsDeathsAssists"]["basic"]["value"].number else { assertionFailure("stat not found"); return }
+        kdaTotal += Double(truncating: kda)
+        guard let winLossRatio = jsonData["Response"]["allPvP"]["allTime"]["winLossRatio"]["basic"]["value"].number else { assertionFailure("stat not found"); return }
+        winLossTotal += Double(truncating: winLossRatio)
+        guard let combatRating = jsonData["Response"]["allPvP"]["allTime"]["combatRating"]["basic"]["value"].number else { assertionFailure("stat not found"); return }
+        combatRatingTotal += Double(truncating: combatRating)
+        statsFound += 1
+        // we've collected stats for all chars, average them
+        guard let chars = d2CharacterIds else { assertionFailure("character ids not found"); return }
+        if statsFound == chars.count {
+            computeAverages()
+        }
+        if isCurrent {
+            guard let bestWeaponType = jsonData["Response"]["allPvP"]["allTime"]["weaponBestType"]["basic"]["displayValue"].string else { assertionFailure("stat not found"); return }
+            currentBestWeaponType.value = bestWeaponType
+            currentKD.value = String(describing: kd)
+            currentKDA.value = String(describing: kda)
+            currentCombatRating.value = String(describing: combatRating)
+        }
+    }
+    
     // MARK: Helper Methods
     
+    // returns average stats across a destiny 2 account
+    private func computeAverages() {
+        let num = Double(statsFound)
+        overallKD.value = String(kdTotal / num)
+        overallKDA.value = String(kdaTotal / num)
+        overallCombatRating.value = String(combatRatingTotal / num)
+        overallWinLossRatio.value = String(winLossTotal / num)
+        d2CharacterIds = []
+    }
+    
+    // clears all performance totals when a new search starts
+    private func clearPerformanceTotals() {
+        kdTotal = 0
+        kdaTotal = 0
+        winLossTotal = 0
+        combatRatingTotal = 0
+        statsFound = 0
+    }
+    
     // clears all existing character data
-  private func returnError(with message: String) {
+    private func returnError(with message: String) {
         info.value = message
         isLoading.value = false
         subclass.value = ""
