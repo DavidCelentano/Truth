@@ -11,6 +11,8 @@ import SnapKit
 import RxSwift
 import RxCocoa
 import Flurry_iOS_SDK
+import StoreKit
+import Foundation
 
 class ViewController: UIViewController {
     
@@ -519,6 +521,12 @@ class ViewController: UIViewController {
                 }
             }
         }).disposed(by: disposeBag)
+
+        if UserDefaults.standard.integer(forKey: "launchCount") > 2 {
+            if #available(iOS 10.3, *) {
+                SKStoreReviewController.requestReview()
+            }
+        }
     }
     
     // creates a gradient for the view background
