@@ -521,12 +521,6 @@ class ViewController: UIViewController {
                 }
             }
         }).disposed(by: disposeBag)
-
-        if UserDefaults.standard.integer(forKey: "launchCount") > 2 {
-            if #available(iOS 10.3, *) {
-                SKStoreReviewController.requestReview()
-            }
-        }
     }
     
     // creates a gradient for the view background
@@ -642,8 +636,15 @@ class ViewController: UIViewController {
         view.endEditing(true)
         // send API request
         api.fetchAccountId(for: username, console: console, destiny2Enabled: destiny2Enabled)
+        let timer = DispatchTime.now() + .seconds(10)
+        DispatchQueue.main.asyncAfter(deadline: timer) {
+            if UserDefaults.standard.integer(forKey: "launchCount") > 4 {
+                if #available(iOS 10.3, *) {
+                    SKStoreReviewController.requestReview()
+                }
+            }
+        }
     }
-    
 }
 
 // MARK: InfoViewControllerDelegate
