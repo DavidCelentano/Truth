@@ -107,14 +107,6 @@ class ViewController: UIViewController {
     private var specialDetailLabel = UILabel.whiteLabel()
     private var heavyHeaderLabel = UILabel.whiteLabel()
     private var heavyDetailLabel = UILabel.whiteLabel()
-    private var currentKDHeaderLabel = UILabel.whiteLabel()
-    private var currentKDDetailLabel = UILabel.whiteLabel()
-    private var currentKDAHeaderLabel = UILabel.whiteLabel()
-    private var currentKDADetailLabel = UILabel.whiteLabel()
-    private var currentCombatRatingHeaderLabel = UILabel.whiteLabel()
-    private var currentCombatRatingDetailLabel = UILabel.whiteLabel()
-    private var currentBestWeaponTypeHeaderLabel = UILabel.whiteLabel()
-    private var currentBestWeaponTypeDetailLabel = UILabel.whiteLabel()
     private var overallKDHeaderLabel = UILabel.whiteLabel()
     private var overallKDDetailLabel = UILabel.whiteLabel()
     private var overallKDAHeaderLabel = UILabel.whiteLabel()
@@ -191,10 +183,6 @@ class ViewController: UIViewController {
         heavyHeaderLabel.text = "Heavy Weapon:"
         lightLevelHeaderLabel.text = "Light Level:"
         timePlayedHeaderLabel.text = "Hours Played:"
-        currentKDHeaderLabel.text = "Current K/D:"
-        currentKDAHeaderLabel.text = "Current K/D/A:"
-        currentBestWeaponTypeHeaderLabel.text = "Current Best Weapon Type:"
-        currentCombatRatingHeaderLabel.text = "Current Combat Rating:"
         overallKDHeaderLabel.text = "Overall K/D:"
         overallKDAHeaderLabel.text = "Overall K/D/A:"
         overallWinLossRatioHeaderLabel.text = "Overall Win/Loss:"
@@ -218,26 +206,6 @@ class ViewController: UIViewController {
         specialStackView.spacing = 15
         
         let heavyStackView = UIStackView(arrangedSubviews: [heavyHeaderLabel, heavyDetailLabel])
-        heavyStackView.alignment = .center
-        heavyStackView.axis = .horizontal
-        heavyStackView.spacing = 15
-        
-        let currentKDStackView = UIStackView(arrangedSubviews: [currentKDHeaderLabel, currentKDDetailLabel])
-        heavyStackView.alignment = .center
-        heavyStackView.axis = .horizontal
-        heavyStackView.spacing = 15
-        
-        let currentKDAStackView = UIStackView(arrangedSubviews: [currentKDAHeaderLabel, currentKDADetailLabel])
-        heavyStackView.alignment = .center
-        heavyStackView.axis = .horizontal
-        heavyStackView.spacing = 15
-        
-        let currentBestWeaponTypeStackView = UIStackView(arrangedSubviews: [currentBestWeaponTypeHeaderLabel, currentBestWeaponTypeDetailLabel])
-        heavyStackView.alignment = .center
-        heavyStackView.axis = .horizontal
-        heavyStackView.spacing = 15
-        
-        let currentCombatRatingStackView = UIStackView(arrangedSubviews: [currentCombatRatingHeaderLabel, currentCombatRatingDetailLabel])
         heavyStackView.alignment = .center
         heavyStackView.axis = .horizontal
         heavyStackView.spacing = 15
@@ -275,7 +243,7 @@ class ViewController: UIViewController {
         
         
         // setup vertical stack views
-        let statsStackView = UIStackView(arrangedSubviews: [subclassStackView, primaryStackView, specialStackView, heavyStackView, lightLevelStackView, currentKDStackView, currentKDAStackView, currentBestWeaponTypeStackView, currentCombatRatingStackView, overallKDStackView, overallKDAStackView, overallWinLossRatioStackView, overallCombatRatingStackView, timePlayedStackView])
+        let statsStackView = UIStackView(arrangedSubviews: [subclassStackView, primaryStackView, specialStackView, heavyStackView, lightLevelStackView, overallKDStackView, overallKDAStackView, overallWinLossRatioStackView, overallCombatRatingStackView, timePlayedStackView])
         statsStackView.alignment = .fill
         statsStackView.axis = .vertical
         statsStackView.spacing = 15
@@ -388,22 +356,6 @@ class ViewController: UIViewController {
             DispatchQueue.main.async {
                 self.heavyHeaderLabel.isHidden = !(string.count > 0)
             }}).bind(to: heavyDetailLabel.rx.text).disposed(by: disposeBag)
-        api.currentKD.asObservable().do(onNext: { string in
-            DispatchQueue.main.async {
-                self.currentKDHeaderLabel.isHidden = !(string.count > 0)
-            }}).bind(to: currentKDDetailLabel.rx.text).disposed(by: disposeBag)
-        api.currentKDA.asObservable().do(onNext: { string in
-            DispatchQueue.main.async {
-                self.currentKDAHeaderLabel.isHidden = !(string.count > 0)
-            }}).bind(to: currentKDADetailLabel.rx.text).disposed(by: disposeBag)
-        api.currentBestWeaponType.asObservable().do(onNext: { string in
-            DispatchQueue.main.async {
-                self.currentBestWeaponTypeHeaderLabel.isHidden = !(string.count > 0)
-            }}).bind(to: currentBestWeaponTypeDetailLabel.rx.text).disposed(by: disposeBag)
-        api.currentCombatRating.asObservable().do(onNext: { string in
-            DispatchQueue.main.async {
-                self.currentCombatRatingHeaderLabel.isHidden = !(string.count > 0)
-            }}).bind(to: currentCombatRatingDetailLabel.rx.text).disposed(by: disposeBag)
         api.overallCombatRating.asObservable().do(onNext: { string in
             DispatchQueue.main.async {
                 self.overallCombatRatingHeaderLabel.isHidden = !(string.count > 0)
