@@ -107,6 +107,14 @@ class ViewController: UIViewController {
     private var specialDetailLabel = UILabel.whiteLabel()
     private var heavyHeaderLabel = UILabel.whiteLabel()
     private var heavyDetailLabel = UILabel.whiteLabel()
+    private var overallKDHeaderLabel = UILabel.whiteLabel()
+    private var overallKDDetailLabel = UILabel.whiteLabel()
+    private var overallKDAHeaderLabel = UILabel.whiteLabel()
+    private var overallKDADetailLabel = UILabel.whiteLabel()
+    private var overallCombatRatingHeaderLabel = UILabel.whiteLabel()
+    private var overallCombatRatingDetailLabel = UILabel.whiteLabel()
+    private var overallWinLossRatioHeaderLabel = UILabel.whiteLabel()
+    private var overallWinLossRatioDetailLabel = UILabel.whiteLabel()
     private var lightLevelHeaderLabel = UILabel.whiteLabel()
     private var lightLevelDetailLabel = UILabel.whiteLabel()
     private var timePlayedHeaderLabel = UILabel.whiteLabel()
@@ -175,6 +183,10 @@ class ViewController: UIViewController {
         heavyHeaderLabel.text = "Heavy Weapon:"
         lightLevelHeaderLabel.text = "Light Level:"
         timePlayedHeaderLabel.text = "Hours Played:"
+        overallKDHeaderLabel.text = "Overall K/D:"
+        overallKDAHeaderLabel.text = "Overall K/D/A:"
+        overallWinLossRatioHeaderLabel.text = "Overall Win/Loss:"
+        overallCombatRatingHeaderLabel.text = "Overall Combat Rating:"
         recentPlayersHeaderLabel.text = "Quick Search"
         
         // setup horizontal stack views
@@ -198,6 +210,27 @@ class ViewController: UIViewController {
         heavyStackView.axis = .horizontal
         heavyStackView.spacing = 15
         
+        let overallKDStackView = UIStackView(arrangedSubviews: [overallKDHeaderLabel, overallKDDetailLabel])
+        heavyStackView.alignment = .center
+        heavyStackView.axis = .horizontal
+        heavyStackView.spacing = 15
+        
+        let overallKDAStackView = UIStackView(arrangedSubviews: [overallKDAHeaderLabel, overallKDADetailLabel])
+        heavyStackView.alignment = .center
+        heavyStackView.axis = .horizontal
+        heavyStackView.spacing = 15
+        
+        let overallWinLossRatioStackView = UIStackView(arrangedSubviews: [overallWinLossRatioHeaderLabel, overallWinLossRatioDetailLabel])
+        heavyStackView.alignment = .center
+        heavyStackView.axis = .horizontal
+        heavyStackView.spacing = 15
+        
+        let overallCombatRatingStackView = UIStackView(arrangedSubviews: [overallCombatRatingHeaderLabel, overallCombatRatingDetailLabel])
+        heavyStackView.alignment = .center
+        heavyStackView.axis = .horizontal
+        heavyStackView.spacing = 15
+        
+        
         let lightLevelStackView = UIStackView(arrangedSubviews: [lightLevelHeaderLabel, lightLevelDetailLabel])
         lightLevelStackView.alignment = .center
         lightLevelStackView.axis = .horizontal
@@ -210,7 +243,7 @@ class ViewController: UIViewController {
         
         
         // setup vertical stack views
-        let statsStackView = UIStackView(arrangedSubviews: [subclassStackView, primaryStackView, specialStackView, heavyStackView, lightLevelStackView, timePlayedStackView])
+        let statsStackView = UIStackView(arrangedSubviews: [subclassStackView, primaryStackView, specialStackView, heavyStackView, lightLevelStackView, overallKDStackView, overallKDAStackView, overallWinLossRatioStackView, overallCombatRatingStackView, timePlayedStackView])
         statsStackView.alignment = .fill
         statsStackView.axis = .vertical
         statsStackView.spacing = 15
@@ -323,6 +356,22 @@ class ViewController: UIViewController {
             DispatchQueue.main.async {
                 self.heavyHeaderLabel.isHidden = !(string.count > 0)
             }}).bind(to: heavyDetailLabel.rx.text).disposed(by: disposeBag)
+        api.overallCombatRating.asObservable().do(onNext: { string in
+            DispatchQueue.main.async {
+                self.overallCombatRatingHeaderLabel.isHidden = !(string.count > 0)
+            }}).bind(to: overallCombatRatingDetailLabel.rx.text).disposed(by: disposeBag)
+        api.overallWinLossRatio.asObservable().do(onNext: { string in
+            DispatchQueue.main.async {
+                self.overallWinLossRatioHeaderLabel.isHidden = !(string.count > 0)
+            }}).bind(to: overallWinLossRatioDetailLabel.rx.text).disposed(by: disposeBag)
+        api.overallKD.asObservable().do(onNext: { string in
+            DispatchQueue.main.async {
+                self.overallKDHeaderLabel.isHidden = !(string.count > 0)
+            }}).bind(to: overallKDDetailLabel.rx.text).disposed(by: disposeBag)
+        api.overallKDA.asObservable().do(onNext: { string in
+            DispatchQueue.main.async {
+                self.overallKDAHeaderLabel.isHidden = !(string.count > 0)
+            }}).bind(to: overallKDADetailLabel.rx.text).disposed(by: disposeBag)
         api.hoursPlayed.asObservable().do(onNext: { string in
             DispatchQueue.main.async {
                 self.timePlayedHeaderLabel.isHidden = !(string.count > 0)

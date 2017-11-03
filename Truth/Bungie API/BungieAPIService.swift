@@ -19,6 +19,7 @@ enum RequestType {
     case primary
     case special
     case heavy
+    case accountStats
 }
 
 // Console types
@@ -64,7 +65,6 @@ class BungieAPIService {
             else {
                 fetchAccountSummary(with: id)
             }
-            
         }
     }
     
@@ -75,6 +75,10 @@ class BungieAPIService {
     var special: Variable<String> = Variable("")
     var heavy: Variable<String> = Variable("")
     var hoursPlayed: Variable<String> = Variable("")
+    var overallCombatRating: Variable<String> = Variable("")
+    var overallWinLossRatio: Variable<String> = Variable("")
+    var overallKD: Variable<String> = Variable("")
+    var overallKDA: Variable<String> = Variable("")
     var info: Variable<String> = Variable("")
     var recentPlayers: Variable<[String]> = Variable([])
     var isLoading: Variable<Bool> = Variable(false)
@@ -110,6 +114,8 @@ class BungieAPIService {
                     self?.accountId = self?.parseAccountId(from: data)
                 case .accountSummary:
                     self?.parseAccountSummary(from: data)
+                case .accountStats:
+                    self?.d2ParseAccountStats(from: data)
                 default:
                     self?.parseItemInfo(from: data, type: type)
                 }
@@ -148,6 +154,7 @@ class BungieAPIService {
     // gather account data for the current account Id
     private func fetchAccountSummary(with accountId: String) {
         sendDestiny1(request: "/\(consoleId)/Account/\(accountId)/Summary/", type: .accountSummary)
+        sendDestiny1(request: "/Stats/Account/\(consoleId)/\(accountId)/", type: .accountStats)
     }
     
     // gather data on a specified item
@@ -241,6 +248,8 @@ class BungieAPIService {
                     self?.d2ParseAccountSummary(from: data)
                 case .inventorySummary:
                     self?.d2ParseInventorySummary(from: data)
+                case .accountStats:
+                    self?.d2ParseAccountStats(from: data)
                 default:
                     self?.d2ParseItemInfo(from: data, type: type)
                 }
@@ -257,6 +266,11 @@ class BungieAPIService {
     private func d2FetchInventorySummary(for characaterId: String) {
         guard let accountId = d2AccountId else { assertionFailure("\(#function) no id found"); return }
         sendDestiny2(request: "/\(consoleId)/Profile/\(accountId)/character/\(characaterId)/?components=205", type: .inventorySummary)
+        
+    }
+    
+    private func d2FetchAccountStats(for accountId: String) {
+        sendDestiny2(request: "/\(consoleId)/Account/\(accountId)/Stats", type: .accountStats)
     }
     
     private func d2FetchItemInfo(for itemHash: String, type: RequestType) {
@@ -267,14 +281,19 @@ class BungieAPIService {
     
     private func d2ParseAccountSummary(from data: Data) {
         let jsonData = JSON(data)
+        // an account must have at least one character to be valid
         guard let recentCharacterId = jsonData["Response"]["profile"]["data"]["characterIds"][0].string else { returnError(with: "No Destiny 2 stats found for this Guardian"); return }
+        // extract time played and light level from the most recent character
         if let lightLevel = jsonData["Response"]["characters"]["data"][recentCharacterId]["light"].number {
             self.lightLevel.value = String(describing: lightLevel)
         }
         if let minutesPlayed = jsonData["Response"]["characters"]["data"][recentCharacterId]["minutesPlayedTotal"].string {
             hoursPlayed.value = String(Int(minutesPlayed)! / 60)
         }
+        // fetch inventory for the most recent character
         d2FetchInventorySummary(for: recentCharacterId)
+        // fetch performance stats for all characters
+        d2FetchAccountStats(for: d2AccountId!)
     }
     
     private func d2ParseInventorySummary(from data: Data) {
@@ -295,8 +314,8 @@ class BungieAPIService {
     
     private func d2ParseItemInfo(from data: Data, type: RequestType) {
         let jsonData = JSON(data)
-        guard let itemName = jsonData["Response"]["displayProperties"]["name"].string else { return }
-        guard let itemType = jsonData["Response"]["itemTypeDisplayName"].string else { return }
+        guard let itemName = jsonData["Response"]["displayProperties"]["name"].string else { assertionFailure("stat not found"); return }
+        guard let itemType = jsonData["Response"]["itemTypeDisplayName"].string else { assertionFailure("stat not found"); return }
         switch type {
         case .subclass:
             subclass.value = itemType.split(separator: " ").first! + " | " + itemName
@@ -313,10 +332,26 @@ class BungieAPIService {
         }
     }
     
+    private func d2ParseAccountStats(from data: Data) {
+        let jsonData = JSON(data)
+        if let kd = jsonData["Response"]["mergedAllCharacters"]["results"]["allPvP"]["allTime"]["killsDeathsRatio"]["basic"]["displayValue"].string {
+            overallKD.value = "  \(kd)" //TODO UI issue with spacing
+        }
+        if let kda = jsonData["Response"]["mergedAllCharacters"]["results"]["allPvP"]["allTime"]["killsDeathsAssists"]["basic"]["displayValue"].string {
+            overallKDA.value = "  \(kda)"
+        }
+        if let winLoss = jsonData["Response"]["mergedAllCharacters"]["results"]["allPvP"]["allTime"]["winLossRatio"]["basic"]["displayValue"].string {
+            overallWinLossRatio.value = "  \(winLoss)"
+        }
+        if let combatRating = jsonData["Response"]["mergedAllCharacters"]["results"]["allPvP"]["allTime"]["combatRating"]["basic"]["displayValue"].string {
+            overallCombatRating.value = "  \(combatRating)"
+        }
+    }
+    
     // MARK: Helper Methods
     
     // clears all existing character data
-  private func returnError(with message: String) {
+    private func returnError(with message: String) {
         info.value = message
         isLoading.value = false
         subclass.value = ""
@@ -324,6 +359,10 @@ class BungieAPIService {
         primary.value = ""
         special.value = ""
         heavy.value = ""
+        overallCombatRating.value = ""
+        overallWinLossRatio.value = ""
+        overallKD.value = ""
+        overallKDA.value = ""
         hoursPlayed.value = ""
     }
 }
