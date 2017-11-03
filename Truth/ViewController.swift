@@ -86,10 +86,21 @@ class ViewController: UIViewController {
     private let api = BungieAPIService()
     
     // tracks the current console type
-    private var console: Console = .Xbox
+    private var console: Console = {
+        guard let consoleId = UserDefaults.standard.value(forKey: "platform") as? Int else { return .Xbox }
+        if consoleId == 0 { return .Xbox }
+        else if consoleId == 1 { return .PlayStation }
+        else if consoleId == 2 { return .PC }
+        else { assertionFailure("console set unexpected value"); return .Xbox }
+    }()
     
     // tracks the destiny version to search against
-    private var destiny2Enabled: Bool = true
+    private var destiny2Enabled: Bool = {
+        guard let versionId = UserDefaults.standard.value(forKey: "version") as? Int else { return true }
+        if versionId == 0 { return false }
+        else if versionId == 1 { return true }
+        else { assertionFailure("destiny2Enabled set unexpected value"); return true }
+    }()
     
     // tracks recently searched players
     private var recentPlayers: Variable<[String]> = Variable([])
