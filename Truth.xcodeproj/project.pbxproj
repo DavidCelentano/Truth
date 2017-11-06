@@ -18,6 +18,7 @@
 		00B07D391F8678CF00DB3E59 /* BungieAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B07D381F8678CF00DB3E59 /* BungieAPIService.swift */; };
 		00B07D3B1F86892600DB3E59 /* Secrets.plist in Resources */ = {isa = PBXBuildFile; fileRef = 00B07D3A1F86892600DB3E59 /* Secrets.plist */; };
 		532217401D7C6827C608BFB8 /* Pods_Truth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02511EFCDAB4D2567D35E3CA /* Pods_Truth.framework */; };
+		84DE5FD31FB4F45000A9198E /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DE5FD21FB4F45000A9198E /* InfoViewController.swift */; };
 		CD90824D6E3E2DC2B789E63A /* Pods_TruthTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A1140C565EC04E5CCCB7C3 /* Pods_TruthTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -50,6 +51,7 @@
 		1CAB17B900CAFCA4DD8D28FC /* Pods-TruthTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TruthTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TruthTests/Pods-TruthTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4702DA158F500F8A9CEFAC03 /* Pods-TruthTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TruthTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TruthTests/Pods-TruthTests.release.xcconfig"; sourceTree = "<group>"; };
 		67A1140C565EC04E5CCCB7C3 /* Pods_TruthTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TruthTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		84DE5FD21FB4F45000A9198E /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		DABB6E2B5166C5156EE726A2 /* Pods-Truth.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Truth.release.xcconfig"; path = "Pods/Target Support Files/Pods-Truth/Pods-Truth.release.xcconfig"; sourceTree = "<group>"; };
 		E643CA3A973ABCD09EC64D0A /* Pods-Truth.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Truth.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Truth/Pods-Truth.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -101,6 +103,7 @@
 				00B07D3A1F86892600DB3E59 /* Secrets.plist */,
 				00B07D151F8665A700DB3E59 /* AppDelegate.swift */,
 				00B07D171F8665A700DB3E59 /* ViewController.swift */,
+				84DE5FD21FB4F45000A9198E /* InfoViewController.swift */,
 				00B07D3E1F89079400DB3E59 /* Bungie API */,
 				00B07D371F866B7800DB3E59 /* UI */,
 				0019A63A1F8C121B0015C451 /* Utilities.swift */,
@@ -378,6 +381,7 @@
 				00B07D181F8665A700DB3E59 /* ViewController.swift in Sources */,
 				00B07D391F8678CF00DB3E59 /* BungieAPIService.swift in Sources */,
 				0019A63B1F8C121B0015C451 /* Utilities.swift in Sources */,
+				84DE5FD31FB4F45000A9198E /* InfoViewController.swift in Sources */,
 				00B07D161F8665A700DB3E59 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -13,6 +13,8 @@ import RxCocoa
 
 class ViewController: UIViewController {
     
+    // MARK: UI elements
+    
     // username label
     private var usernameTextField: UITextField = {
         let t = UITextField()
@@ -120,7 +122,6 @@ class ViewController: UIViewController {
     private let disposeBag = DisposeBag()
     
     // character detail outlets
-    // TODO subclass uilabel to make a custom one
     private var subclassHeaderLabel = UILabel.whiteLabel()
     private var subclassDetailLabel = UILabel.whiteLabel()
     private var primaryHeaderLabel = UILabel.whiteLabel()
@@ -148,6 +149,21 @@ class ViewController: UIViewController {
         return l
     }()
     
+    // stats stack views
+    private var statsStackView: UIStackView!
+    private var subclassStackView: UIStackView!
+    private var primaryStackView: UIStackView!
+    private var specialStackView: UIStackView!
+    private var heavyStackView: UIStackView!
+    private var overallKDStackView: UIStackView!
+    private var overallKDAStackView: UIStackView!
+    private var overallWinLossRatioStackView: UIStackView!
+    private var overallCombatRatingStackView: UIStackView!
+    private var lightLevelStackView: UIStackView!
+    private var timePlayedStackView: UIStackView!
+
+
+    // recent players buttons
     private var recentPlayersHeaderLabel: UILabel = {
         let l = UILabel()
         l.textColor = UIColor.white
@@ -178,9 +194,19 @@ class ViewController: UIViewController {
         return b
     }()
     
+    private var infoButton: UIButton = {
+        let b = UIButton(type: .system)
+        b.setImage(#imageLiteral(resourceName: "InfoIcon"), for: .normal)
+        b.tintColor = .white
+        b.addTarget(self, action: #selector(infoTapped), for: .touchUpInside)
+        return b
+    }()
+    
     
     @IBOutlet weak var scrollView: UIScrollView!
   
+    // MARK: View Functions
+    
     // set status bar to white
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -219,60 +245,73 @@ class ViewController: UIViewController {
         recentPlayersHeaderLabel.text = "Quick Search"
         
         // setup horizontal stack views
-        let subclassStackView = UIStackView(arrangedSubviews: [subclassHeaderLabel, subclassDetailLabel])
+        subclassStackView = UIStackView(arrangedSubviews: [subclassHeaderLabel, subclassDetailLabel])
         subclassStackView.alignment = .center
         subclassStackView.axis = .horizontal
         subclassStackView.spacing = 15
         
-        let primaryStackView = UIStackView(arrangedSubviews: [primaryHeaderLabel, primaryDetailLabel])
+        primaryStackView = UIStackView(arrangedSubviews: [primaryHeaderLabel, primaryDetailLabel])
         primaryStackView.alignment = .center
         primaryStackView.axis = .horizontal
         primaryStackView.spacing = 15
         
-        let specialStackView = UIStackView(arrangedSubviews: [specialHeaderLabel, specialDetailLabel])
+        specialStackView = UIStackView(arrangedSubviews: [specialHeaderLabel, specialDetailLabel])
         specialStackView.alignment = .center
         specialStackView.axis = .horizontal
         specialStackView.spacing = 15
         
-        let heavyStackView = UIStackView(arrangedSubviews: [heavyHeaderLabel, heavyDetailLabel])
+        heavyStackView = UIStackView(arrangedSubviews: [heavyHeaderLabel, heavyDetailLabel])
         heavyStackView.alignment = .center
         heavyStackView.axis = .horizontal
         heavyStackView.spacing = 15
         
-        let overallKDStackView = UIStackView(arrangedSubviews: [overallKDHeaderLabel, overallKDDetailLabel])
+        overallKDStackView = UIStackView(arrangedSubviews: [overallKDHeaderLabel, overallKDDetailLabel])
         heavyStackView.alignment = .center
         heavyStackView.axis = .horizontal
         heavyStackView.spacing = 15
         
-        let overallKDAStackView = UIStackView(arrangedSubviews: [overallKDAHeaderLabel, overallKDADetailLabel])
+        overallKDAStackView = UIStackView(arrangedSubviews: [overallKDAHeaderLabel, overallKDADetailLabel])
         heavyStackView.alignment = .center
         heavyStackView.axis = .horizontal
         heavyStackView.spacing = 15
         
-        let overallWinLossRatioStackView = UIStackView(arrangedSubviews: [overallWinLossRatioHeaderLabel, overallWinLossRatioDetailLabel])
+        overallWinLossRatioStackView = UIStackView(arrangedSubviews: [overallWinLossRatioHeaderLabel, overallWinLossRatioDetailLabel])
         heavyStackView.alignment = .center
         heavyStackView.axis = .horizontal
         heavyStackView.spacing = 15
         
-        let overallCombatRatingStackView = UIStackView(arrangedSubviews: [overallCombatRatingHeaderLabel, overallCombatRatingDetailLabel])
+        overallCombatRatingStackView = UIStackView(arrangedSubviews: [overallCombatRatingHeaderLabel, overallCombatRatingDetailLabel])
         heavyStackView.alignment = .center
         heavyStackView.axis = .horizontal
         heavyStackView.spacing = 15
         
         
-        let lightLevelStackView = UIStackView(arrangedSubviews: [lightLevelHeaderLabel, lightLevelDetailLabel])
+        lightLevelStackView = UIStackView(arrangedSubviews: [lightLevelHeaderLabel, lightLevelDetailLabel])
         lightLevelStackView.alignment = .center
         lightLevelStackView.axis = .horizontal
         lightLevelStackView.spacing = 15
         
-        let timePlayedStackView = UIStackView(arrangedSubviews: [timePlayedHeaderLabel, timePlayedDetailLabel])
+        timePlayedStackView = UIStackView(arrangedSubviews: [timePlayedHeaderLabel, timePlayedDetailLabel])
         timePlayedStackView.alignment = .center
         timePlayedStackView.axis = .horizontal
         timePlayedStackView.spacing = 15
         
         
         // setup vertical stack views
-        let statsStackView = UIStackView(arrangedSubviews: [subclassStackView, primaryStackView, specialStackView, heavyStackView, lightLevelStackView, overallKDStackView, overallKDAStackView, overallWinLossRatioStackView, overallCombatRatingStackView, timePlayedStackView])
+        statsStackView = UIStackView()
+        // include stats based on user default settings
+        let ud = UserDefaults.standard
+        if ud.value(forKey: "subclassEnabled") as? Bool ?? true { statsStackView.addArrangedSubview(subclassStackView) }
+        if ud.value(forKey: "primaryEnabled") as? Bool ?? true { statsStackView.addArrangedSubview(primaryStackView) }
+        if ud.value(forKey: "specialEnabled") as? Bool ?? true { statsStackView.addArrangedSubview(specialStackView) }
+        if ud.value(forKey: "heavyEnabled") as? Bool ?? true { statsStackView.addArrangedSubview(heavyStackView) }
+        if ud.value(forKey: "lightLevelEnabled") as? Bool ?? true { statsStackView.addArrangedSubview(lightLevelStackView) }
+        if ud.value(forKey: "overallKDEnabled") as? Bool ?? true { statsStackView.addArrangedSubview(overallKDStackView) }
+        if ud.value(forKey: "overallKDAEnabled") as? Bool ?? true { statsStackView.addArrangedSubview(overallKDAStackView) }
+        if ud.value(forKey: "overallWinLossEnabled") as? Bool ?? true { statsStackView.addArrangedSubview(overallWinLossRatioStackView) }
+        if ud.value(forKey: "overallCombatRatingEnabled") as? Bool ?? true { statsStackView.addArrangedSubview(overallCombatRatingStackView) }
+        if ud.value(forKey: "timePlayedEnabled") as? Bool ?? true { statsStackView.addArrangedSubview(timePlayedStackView) }
+        //statsStackView = UIStackView(arrangedSubviews: [subclassStackView, primaryStackView, specialStackView, heavyStackView, lightLevelStackView, overallKDStackView, overallKDAStackView, overallWinLossRatioStackView, overallCombatRatingStackView, timePlayedStackView])
         statsStackView.alignment = .fill
         statsStackView.axis = .vertical
         statsStackView.spacing = 15
@@ -328,6 +367,14 @@ class ViewController: UIViewController {
         loadingIndicator.snp.makeConstraints { make in
             make.centerY.equalTo(usernameTextField)
             make.trailing.equalTo(usernameTextField.snp.leading).offset(-10)
+            make.height.equalTo(34)
+            make.width.equalTo(34)
+        }
+        
+        scrollView.addSubview(infoButton)
+        infoButton.snp.makeConstraints { make in
+            make.centerY.equalTo(usernameTextField)
+            make.trailingMargin.equalTo(loadingIndicator.snp.leading).offset(-10)
             make.height.equalTo(34)
             make.width.equalTo(34)
         }
@@ -468,6 +515,8 @@ class ViewController: UIViewController {
         view.layer.sublayers?.insert(gradientLayer, at: 0)
     }
     
+    // MARK: Outlet Methods
+    
     @objc func platformChanged() {
         UserDefaults.standard.set(platformSwitch.selectedSegmentIndex, forKey: "platform")
         if platformSwitch.selectedSegmentIndex == 0 {
@@ -541,6 +590,14 @@ class ViewController: UIViewController {
         }
     }
     
+    @objc func infoTapped() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let infoVC = storyboard.instantiateViewController(withIdentifier: "Info") as? InfoViewController else { assertionFailure("\(#function) Could not present InfoVC"); return }
+        infoVC.modalTransitionStyle = .flipHorizontal
+        infoVC.delegate = self
+        present(infoVC, animated: true, completion: nil)
+    }
+    
     // MARK: API Methods
     
     private func sendAPIRequest(for username: String) {
@@ -553,6 +610,47 @@ class ViewController: UIViewController {
     }
     
 }
+
+// MARK: InfoViewControllerDelegate
+extension ViewController: InfoViewControllerDelegate {
+    func setEnabled(to bool: Bool, for stat: Stat) {
+        guard let statsStackView = statsStackView else { assertionFailure("statsStack not found"); return }
+        switch stat {
+        case .subclass:
+            bool ? statsStackView.insertArrangedSubview(subclassStackView, at: 0) : statsStackView.removeArrangedSubview(subclassStackView)
+            UserDefaults.standard.set(bool, forKey: "subclassEnabled")
+        case .primary:
+            bool ? statsStackView.insertArrangedSubview(primaryStackView, at: min(statsStackView.arrangedSubviews.count, 1)) : statsStackView.removeArrangedSubview(primaryStackView)
+            UserDefaults.standard.set(bool, forKey: "primaryEnabled")
+        case .special:
+            bool ? statsStackView.insertArrangedSubview(specialStackView, at: min(statsStackView.arrangedSubviews.count, 2)) : statsStackView.removeArrangedSubview(specialStackView)
+            UserDefaults.standard.set(bool, forKey: "specialEnabled")
+        case .heavy:
+            bool ? statsStackView.insertArrangedSubview(heavyStackView, at: min(statsStackView.arrangedSubviews.count, 3)) : statsStackView.removeArrangedSubview(heavyStackView)
+            UserDefaults.standard.set(bool, forKey: "heavyEnabled")
+        case .lightLevel:
+            bool ? statsStackView.insertArrangedSubview(lightLevelStackView, at: min(statsStackView.arrangedSubviews.count, 4)) : statsStackView.removeArrangedSubview(lightLevelStackView)
+            UserDefaults.standard.set(bool, forKey: "lightLevelEnabled")
+        case .overallKD:
+            bool ? statsStackView.insertArrangedSubview(overallKDStackView, at: min(statsStackView.arrangedSubviews.count, 5)) : statsStackView.removeArrangedSubview(overallKDStackView)
+            UserDefaults.standard.set(bool, forKey: "overallKDEnabled")
+        case .overallKDA:
+            bool ? statsStackView.insertArrangedSubview(overallKDAStackView, at: min(statsStackView.arrangedSubviews.count, 6)) : statsStackView.removeArrangedSubview(overallKDAStackView)
+            UserDefaults.standard.set(bool, forKey: "overallKDAEnabled")
+        case .overallWinLoss:
+            bool ? statsStackView.insertArrangedSubview(overallWinLossRatioStackView, at: min(statsStackView.arrangedSubviews.count, 7)) : statsStackView.removeArrangedSubview(overallWinLossRatioStackView)
+            UserDefaults.standard.set(bool, forKey: "overallWinLossEnabled")
+        case .overallCombatRating:
+            bool ? statsStackView.insertArrangedSubview(overallCombatRatingStackView, at: min(statsStackView.arrangedSubviews.count, 8)) : statsStackView.removeArrangedSubview(overallCombatRatingStackView)
+            UserDefaults.standard.set(bool, forKey: "overallCombatRatingEnabled")
+        case .timePlayed:
+            bool ? statsStackView.insertArrangedSubview(timePlayedStackView, at: min(statsStackView.arrangedSubviews.count, 9)) : statsStackView.removeArrangedSubview(timePlayedStackView)
+            UserDefaults.standard.set(bool, forKey: "timePlayedEnabled")
+        }
+    }
+}
+
+// MARK: UITextFieldDelegate
 
 extension ViewController: UITextFieldDelegate {
     // when users press return on the keyboard, start the search
