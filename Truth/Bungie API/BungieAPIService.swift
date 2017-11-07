@@ -115,7 +115,7 @@ class BungieAPIService {
                 case .accountSummary:
                     self?.parseAccountSummary(from: data)
                 case .accountStats:
-                    self?.d2ParseAccountStats(from: data)
+                    self?.parseAccountStats(from: data)
                 default:
                     self?.parseItemInfo(from: data, type: type)
                 }
@@ -208,8 +208,6 @@ class BungieAPIService {
         if let name = jsonData["Response"]["data"]["inventoryItem"]["itemName"].string {
             switch type {
             case .subclass:
-                // stop loading state
-                isLoading.value = false
                 subclass.value = name
             case .primary:
                 primary.value = name
@@ -249,7 +247,7 @@ class BungieAPIService {
                 case .inventorySummary:
                     self?.d2ParseInventorySummary(from: data)
                 case .accountStats:
-                    self?.d2ParseAccountStats(from: data)
+                    self?.parseAccountStats(from: data)
                 default:
                     self?.d2ParseItemInfo(from: data, type: type)
                 }
@@ -320,8 +318,6 @@ class BungieAPIService {
         case .subclass:
             subclass.value = itemType.split(separator: " ").first! + " | " + itemName
         case .primary:
-            // stop loading state
-            isLoading.value = false
             primary.value = itemName + " | " + itemType
         case .special:
             special.value = itemName + " | " + itemType
@@ -332,7 +328,7 @@ class BungieAPIService {
         }
     }
     
-    private func d2ParseAccountStats(from data: Data) {
+    private func parseAccountStats(from data: Data) {
         let jsonData = JSON(data)
         if let kd = jsonData["Response"]["mergedAllCharacters"]["results"]["allPvP"]["allTime"]["killsDeathsRatio"]["basic"]["displayValue"].string {
             overallKD.value = "  \(kd)" //TODO UI issue with spacing
@@ -345,6 +341,8 @@ class BungieAPIService {
         }
         if let combatRating = jsonData["Response"]["mergedAllCharacters"]["results"]["allPvP"]["allTime"]["combatRating"]["basic"]["displayValue"].string {
             overallCombatRating.value = "  \(combatRating)"
+            // stop loading state
+            isLoading.value = false
         }
     }
     
