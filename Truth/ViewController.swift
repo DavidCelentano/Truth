@@ -526,6 +526,8 @@ class ViewController: UIViewController {
     // MARK: API Methods
     
     private func sendAPIRequest(for username: String) {
+        // drop request if no username entered
+        if username.count == 0 { return }
         // dismiss keyboard
         view.endEditing(true)
         // send API request
