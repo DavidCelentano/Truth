@@ -92,7 +92,18 @@ class ViewController: UIViewController {
         else if consoleId == 1 { return .PlayStation }
         else if consoleId == 2 { return .PC }
         else { assertionFailure("console set unexpected value"); return .Xbox }
-    }()
+    }() {
+        didSet {
+            // disabled destiny 1 if PC is selected
+            if console == .PC {
+                versionSwitch.setEnabled(false, forSegmentAt: 0)
+                versionSwitch.selectedSegmentIndex = 1
+                destiny2Enabled = true
+            } else {
+                versionSwitch.setEnabled(true, forSegmentAt: 0)
+            }
+        }
+    }
     
     // tracks the destiny version to search against
     private var destiny2Enabled: Bool = {
@@ -177,6 +188,13 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // if PC has been retained by userdefaults, ensure destiny 1 is disabled
+        if console == .PC {
+            versionSwitch.setEnabled(false, forSegmentAt: 0)
+            versionSwitch.selectedSegmentIndex = 1
+            destiny2Enabled = true
+        }
         
         setUpGradient()
         
