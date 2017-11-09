@@ -120,6 +120,10 @@ class BungieAPIService {
                     self?.parseItemInfo(from: data, type: type)
                 }
             }
+            if error != nil {
+                self?.isLoading.value = false
+                self?.returnError(with: "No Internet Connection 😞")
+            }
         })
         task.resume()
     }
@@ -252,6 +256,10 @@ class BungieAPIService {
                     self?.d2ParseItemInfo(from: data, type: type)
                 }
             }
+            if error != nil {
+                self?.isLoading.value = false
+                self?.returnError(with: "No Internet Connection 😞")
+            }
         })
         task.resume()
     }
@@ -332,16 +340,25 @@ class BungieAPIService {
         let jsonData = JSON(data)
         if let kd = jsonData["Response"]["mergedAllCharacters"]["results"]["allPvP"]["allTime"]["killsDeathsRatio"]["basic"]["displayValue"].string {
             overallKD.value = "  \(kd)" //TODO UI issue with spacing
+        } else {
+            overallKD.value = "No KD Data"
         }
         if let kda = jsonData["Response"]["mergedAllCharacters"]["results"]["allPvP"]["allTime"]["killsDeathsAssists"]["basic"]["displayValue"].string {
             overallKDA.value = "  \(kda)"
+        } else {
+            overallKDA.value = "No KDA Data"
         }
         if let winLoss = jsonData["Response"]["mergedAllCharacters"]["results"]["allPvP"]["allTime"]["winLossRatio"]["basic"]["displayValue"].string {
             overallWinLossRatio.value = "  \(winLoss)"
+        } else {
+            overallWinLossRatio.value = "No W/L Data"
         }
         if let combatRating = jsonData["Response"]["mergedAllCharacters"]["results"]["allPvP"]["allTime"]["combatRating"]["basic"]["displayValue"].string {
             overallCombatRating.value = "  \(combatRating)"
             // stop loading state
+            isLoading.value = false
+        } else {
+            overallCombatRating.value = "No CR Data"
             isLoading.value = false
         }
     }
