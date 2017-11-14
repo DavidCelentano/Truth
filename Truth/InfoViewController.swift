@@ -158,10 +158,10 @@ class InfoViewController: UIViewController {
         specialLabel.text = "Special Weapon"
         heavyLabel.text = "Heavy Weapon"
         lightLevelLabel.text = "Light Level"
-        overallKDLabel.text = "Kills / Deaths ratio for all characters"
-        overallKDALabel.text = "Kills + [Assists / 2] / Deaths ratio for all characters"
-        overallWinLossLabel.text = "Wins / Losses ratio for all characters"
-        overallCombatRatingLabel.text = "Combat Rating is an assessment of skill" //TODO
+        overallKDLabel.text = "Overall KD: Kills / Deaths ratio for all characters"
+        overallKDALabel.text = "Overall KDA: Kills + [Assists / 2] / Deaths ratio for all characters"
+        overallWinLossLabel.text = "Overall Win/Loss: Wins / Losses ratio for all characters"
+        overallCombatRatingLabel.text = "Overall Combat Rating: An assessment of your skill and teamwork. It factors in your score compared to others in each match and penalizes you for quitting."
         timePlayedLabel.text = "Hours played on current character"
 
         
