@@ -41,10 +41,10 @@
             </objects>
             <point key="canvasLocation" x="32.799999999999997" y="31.03448275862069"/>
         </scene>
-        <!--Info View Controller-->
+        <!--Filter View Controller-->
         <scene sceneID="ggk-bC-8EV">
             <objects>
-                <viewController storyboardIdentifier="Info" id="Un0-vM-lpW" customClass="InfoViewController" customModule="Truth" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Info" id="Un0-vM-lpW" customClass="FilterViewController" customModule="Truth" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="lAC-9W-ebn">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

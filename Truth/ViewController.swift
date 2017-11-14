@@ -118,6 +118,9 @@ class ViewController: UIViewController {
     // tracks recently searched players
     private var recentPlayers: Variable<[String]> = Variable([])
     
+    // the number of stats currently supported
+    private var numOfStats = 10
+    
     // needed for reactive variable observation
     private let disposeBag = DisposeBag()
     
@@ -194,13 +197,13 @@ class ViewController: UIViewController {
         return b
     }()
     
-    private var infoButton: UIButton = {
+    private var filterButton: UIButton = {
         let b = UIButton(type: .system)
         b.setTitle("Filter", for: .normal)
         b.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         b.titleLabel?.adjustsFontSizeToFitWidth = true
         b.tintColor = .white
-        b.addTarget(self, action: #selector(infoTapped), for: .touchUpInside)
+        b.addTarget(self, action: #selector(filterTapped), for: .touchUpInside)
         return b
     }()
     
@@ -216,10 +219,11 @@ class ViewController: UIViewController {
     
     override func viewWillLayoutSubviews() {
         // update filter number
-        if (10 - statsStackView.arrangedSubviews.count) > 0 {
-            infoButton.setTitle("Filter (\(10 - statsStackView.arrangedSubviews.count))", for: .normal)
+        let hiddenStats = numOfStats - statsStackView.arrangedSubviews.count
+        if hiddenStats > 0 {
+            filterButton.setTitle("Filter (\(hiddenStats))", for: .normal)
         } else {
-            infoButton.setTitle("Filter", for: .normal)
+            filterButton.setTitle("Filter", for: .normal)
         }
     }
     
@@ -374,8 +378,8 @@ class ViewController: UIViewController {
             make.top.equalTo(usernameLabel.snp.bottom).offset(10)
         }
         
-        scrollView.addSubview(infoButton)
-        infoButton.snp.makeConstraints { make in
+        scrollView.addSubview(filterButton)
+        filterButton.snp.makeConstraints { make in
             make.centerY.equalTo(usernameTextField)
             make.trailing.equalTo(usernameTextField.snp.leading).offset(-15)
             make.leading.equalTo(scrollView).offset(5)
@@ -393,7 +397,7 @@ class ViewController: UIViewController {
         scrollView.addSubview(loadingIndicator)
         loadingIndicator.snp.makeConstraints { make in
             make.centerY.equalTo(usernameLabel)
-            make.centerX.equalTo(infoButton)
+            make.centerX.equalTo(filterButton)
             make.height.equalTo(34)
             make.width.equalTo(34)
         }
@@ -601,12 +605,12 @@ class ViewController: UIViewController {
         }
     }
     
-    @objc func infoTapped() {
+    @objc func filterTapped() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        guard let infoVC = storyboard.instantiateViewController(withIdentifier: "Info") as? InfoViewController else { assertionFailure("\(#function) Could not present InfoVC"); return }
-        infoVC.modalTransitionStyle = .flipHorizontal
-        infoVC.delegate = self
-        present(infoVC, animated: true, completion: nil)
+        guard let filterVC = storyboard.instantiateViewController(withIdentifier: "Info") as? FilterViewController else { assertionFailure("\(#function) Could not present InfoVC"); return }
+        filterVC.modalTransitionStyle = .flipHorizontal
+        filterVC.delegate = self
+        present(filterVC, animated: true, completion: nil)
     }
     
     // MARK: API Methods
@@ -623,7 +627,7 @@ class ViewController: UIViewController {
 }
 
 // MARK: InfoViewControllerDelegate
-extension ViewController: InfoViewControllerDelegate {
+extension ViewController: FilterViewControllerDelegate {
     func setEnabled(to bool: Bool, for stat: Stat) {
         guard let statsStackView = statsStackView else { assertionFailure("statsStack not found"); return }
         switch stat {

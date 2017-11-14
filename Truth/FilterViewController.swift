@@ -1,5 +1,5 @@
 //
-//  InfoViewController.swift
+//  FilterViewController.swift
 //  Truth
 //
 //  Created by dcelentano on 11/9/17.
@@ -22,15 +22,15 @@ enum Stat {
     case timePlayed
 }
 
-protocol InfoViewControllerDelegate: class {
+protocol FilterViewControllerDelegate: class {
     func setEnabled(to bool: Bool, for stat: Stat)
 }
 
-class InfoViewController: UIViewController {
+class FilterViewController: UIViewController {
     
     // MARK: Properties
     
-    var delegate: InfoViewControllerDelegate?
+    var delegate: FilterViewControllerDelegate?
     
     private var dismissButton: UIButton = {
         let b = UIButton(type: .system)
