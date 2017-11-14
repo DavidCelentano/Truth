@@ -198,6 +198,7 @@ class ViewController: UIViewController {
         let b = UIButton(type: .system)
         b.setTitle("Filter", for: .normal)
         b.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        b.titleLabel?.adjustsFontSizeToFitWidth = true
         b.tintColor = .white
         b.addTarget(self, action: #selector(infoTapped), for: .touchUpInside)
         return b
@@ -211,6 +212,15 @@ class ViewController: UIViewController {
     // set status bar to white
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
+    }
+    
+    override func viewWillLayoutSubviews() {
+        // update filter number
+        if (10 - statsStackView.arrangedSubviews.count) > 0 {
+            infoButton.setTitle("Filter (\(10 - statsStackView.arrangedSubviews.count))", for: .normal)
+        } else {
+            infoButton.setTitle("Filter", for: .normal)
+        }
     }
     
     override func viewDidLoad() {
@@ -368,8 +378,8 @@ class ViewController: UIViewController {
         infoButton.snp.makeConstraints { make in
             make.centerY.equalTo(usernameTextField)
             make.trailing.equalTo(usernameTextField.snp.leading).offset(-15)
+            make.leading.equalTo(scrollView).offset(5)
             make.height.equalTo(34)
-            make.width.equalTo(50)
         }
       
         scrollView.addSubview(searchButton)
