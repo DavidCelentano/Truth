@@ -158,7 +158,6 @@ class BungieAPIService {
     // gather account data for the current account Id
     private func fetchAccountSummary(with accountId: String) {
         sendDestiny1(request: "/\(consoleId)/Account/\(accountId)/Summary/", type: .accountSummary)
-        sendDestiny1(request: "/Stats/Account/\(consoleId)/\(accountId)/", type: .accountStats)
     }
     
     // gather data on a specified item
@@ -203,6 +202,9 @@ class BungieAPIService {
         }
         if let heavy = jsonData["Response"]["data"]["characters"][0]["characterBase"]["peerView"]["equipment"][8]["itemHash"].number {
             fetchItemInfo(for: String(describing: heavy), type: .heavy)
+        }
+        if let id = accountId {
+            sendDestiny1(request: "/Stats/Account/\(consoleId)/\(id)/", type: .accountStats)
         }
     }
     
