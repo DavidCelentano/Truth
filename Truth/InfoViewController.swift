@@ -32,9 +32,6 @@ class InfoViewController: UIViewController {
     
     var delegate: InfoViewControllerDelegate?
     
-    // used to properly layout views on all devices (including iPhone X)
-    @IBOutlet weak var topBumperView: UIView!
-    
     private var dismissButton: UIButton = {
         let b = UIButton(type: .system)
         b.setImage(#imageLiteral(resourceName: "InfoIcon"), for: .normal) //TODO change icon
@@ -143,6 +140,7 @@ class InfoViewController: UIViewController {
         return b
     }()
     
+    @IBOutlet weak var scrollView: UIScrollView!
     
     // MARK: View Setup
     
@@ -160,6 +158,7 @@ class InfoViewController: UIViewController {
         overallWinLossLabel.text = "Wins / Losses ratio for all characters"
         overallCombatRatingLabel.text = "Combat Rating is an assessment of skill" //TODO
         timePlayedLabel.text = "Hours played on current character"
+
         
         // button sizing
         subclassButton.snp.makeConstraints { make in
@@ -253,18 +252,19 @@ class InfoViewController: UIViewController {
         statsStackView.distribution = .equalSpacing
         
         // constraints
-        view.addSubview(dismissButton)
+        scrollView.addSubview(dismissButton)
         dismissButton.snp.makeConstraints { make in
-            make.top.equalTo(topBumperView).offset(15)
-            make.leading.equalTo(view).offset(15)
+            make.top.equalTo(scrollView).offset(15)
+            make.leading.equalTo(scrollView).offset(15)
             make.size.equalTo(34)
         }
         
-        view.addSubview(statsStackView)
+        scrollView.addSubview(statsStackView)
         statsStackView.snp.makeConstraints { make in
             make.top.equalTo(dismissButton.snp.bottom).offset(20)
             make.leading.equalTo(view).offset(15)
             make.trailing.equalTo(view).offset(-15)
+            make.bottom.equalTo(scrollView).offset(-15)
         }
         
         
