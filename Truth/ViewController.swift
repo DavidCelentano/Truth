@@ -61,7 +61,7 @@ class ViewController: UIViewController {
         let l = UILabel()
         l.textColor = UIColor.white
         l.numberOfLines = 0
-        l.text = "Destiny Version"
+        l.text = "Version"
         return l
     }()
     
@@ -196,7 +196,8 @@ class ViewController: UIViewController {
     
     private var infoButton: UIButton = {
         let b = UIButton(type: .system)
-        b.setImage(#imageLiteral(resourceName: "InfoIcon"), for: .normal)
+        b.setTitle("Filter", for: .normal)
+        b.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         b.tintColor = .white
         b.addTarget(self, action: #selector(infoTapped), for: .touchUpInside)
         return b
@@ -363,28 +364,28 @@ class ViewController: UIViewController {
             make.top.equalTo(usernameLabel.snp.bottom).offset(10)
         }
         
-        scrollView.addSubview(loadingIndicator)
-        loadingIndicator.snp.makeConstraints { make in
-            make.centerY.equalTo(usernameTextField)
-            make.trailing.equalTo(usernameTextField.snp.leading).offset(-10)
-            make.height.equalTo(34)
-            make.width.equalTo(34)
-        }
-        
         scrollView.addSubview(infoButton)
         infoButton.snp.makeConstraints { make in
             make.centerY.equalTo(usernameTextField)
-            make.trailingMargin.equalTo(loadingIndicator.snp.leading).offset(-10)
+            make.trailing.equalTo(usernameTextField.snp.leading).offset(-15)
             make.height.equalTo(34)
-            make.width.equalTo(34)
+            make.width.equalTo(50)
         }
-        
+      
         scrollView.addSubview(searchButton)
         searchButton.snp.makeConstraints { make in
             make.leading.equalTo(usernameTextField.snp.trailing).offset(10)
             make.width.equalTo(34)
             make.height.equalTo(34)
             make.centerY.equalTo(usernameTextField)
+        }
+        
+        scrollView.addSubview(loadingIndicator)
+        loadingIndicator.snp.makeConstraints { make in
+            make.centerY.equalTo(usernameLabel)
+            make.centerX.equalTo(infoButton)
+            make.height.equalTo(34)
+            make.width.equalTo(34)
         }
         
         scrollView.addSubview(infoLabel)
