@@ -10,6 +10,7 @@ import UIKit
 import SnapKit
 import RxSwift
 import RxCocoa
+import Flurry_iOS_SDK
 
 class ViewController: UIViewController {
     
@@ -574,6 +575,8 @@ class ViewController: UIViewController {
     }
     
     @objc func recentPlayer1Tapped() {
+        // analytics
+        Flurry.logEvent("QuickSearch Tapped")
         if var username = recentPlayer1Button.titleLabel?.text {
             // trim any trailing whitespace for autocomplete
             username = username.trimmingCharacters(in: .whitespaces)
@@ -585,6 +588,8 @@ class ViewController: UIViewController {
     }
 
     @objc func recentPlayer2Tapped() {
+        // analytics
+        Flurry.logEvent("QuickSearch Tapped")
         if var username = recentPlayer2Button.titleLabel?.text {
             // trim any trailing whitespace for autocomplete
             username = username.trimmingCharacters(in: .whitespaces)
@@ -595,6 +600,8 @@ class ViewController: UIViewController {
         }
     }
     @objc func recentPlayer3Tapped() {
+        // analytics
+        Flurry.logEvent("QuickSearch Tapped")
         if var username = recentPlayer3Button.titleLabel?.text {
             // trim any trailing whitespace for autocomplete
             username = username.trimmingCharacters(in: .whitespaces)
@@ -606,6 +613,8 @@ class ViewController: UIViewController {
     }
     
     @objc func filterTapped() {
+        // analytics
+        Flurry.logEvent("Filter Tapped")
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         guard let filterVC = storyboard.instantiateViewController(withIdentifier: "Info") as? FilterViewController else { assertionFailure("\(#function) Could not present InfoVC"); return }
         filterVC.modalTransitionStyle = .flipHorizontal
@@ -618,6 +627,9 @@ class ViewController: UIViewController {
     private func sendAPIRequest(for username: String) {
         // drop request if no username entered
         if username.count == 0 { return }
+        // analytics
+        let searchParams = ["gamertag" : username, "console" : String(describing: console), "destiny2?" : String(describing: destiny2Enabled)]
+        Flurry.logEvent("Search", withParameters: searchParams)
         // dismiss keyboard
         view.endEditing(true)
         // send API request
