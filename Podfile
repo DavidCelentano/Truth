@@ -6,10 +6,12 @@ target 'Truth' do
   use_frameworks!
 
   # Pods for Truth
-  pod 'SnapKit', '~> 4.0'
-  pod 'SwiftyJSON'
-  pod 'RxSwift', '4.0.0-beta.1'
+  pod 'SnapKit', '~> 4.0' # Programatic Layouts
+  pod 'SwiftyJSON' # JSON Parsing
+  pod 'RxSwift', '4.0.0-beta.1' # Reactive Library
   pod 'RxCocoa', '4.0.0-beta.1'
+  pod 'Flurry-iOS-SDK/FlurrySDK' #Analytics Pod
+  pod 'Flurry-iOS-SDK/FlurryAds' #Advertising Pod
 
   target 'TruthTests' do
     inherit! :search_paths

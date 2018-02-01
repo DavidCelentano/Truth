@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Flurry_iOS_SDK
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +17,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        // extract secret key
+        var myDict: NSDictionary?
+        var secretKey: String?
+        if let path = Bundle.main.path(forResource: "Secrets", ofType: "plist") {
+            myDict = NSDictionary(contentsOfFile: path)
+        }
+        if let dict = myDict {
+            secretKey = dict.value(forKey: "Flurry_key") as? String
+            Flurry.startSession(secretKey, with: FlurrySessionBuilder
+                .init()
+                .withCrashReporting(true)
+                .withLogLevel(FlurryLogLevelAll))
+        }
         return true
     }
 
