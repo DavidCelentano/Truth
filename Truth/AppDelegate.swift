@@ -17,7 +17,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        // extract secret key
+        
+        // MARK: Flurry Analytics
+        // extract secret key for analytics
         var myDict: NSDictionary?
         var secretKey: String?
         if let path = Bundle.main.path(forResource: "Secrets", ofType: "plist") {
@@ -30,6 +32,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 .withCrashReporting(true)
                 .withLogLevel(FlurryLogLevelAll))
         }
+        
+        // MARK: Rating popup
+        // get current number of times app has been launched
+        let currentCount = UserDefaults.standard.integer(forKey: "launchCount")
+        // increment received number by one
+        UserDefaults.standard.set(currentCount+1, forKey:"launchCount")
+        // save changes to disk
+        UserDefaults.standard.synchronize()
         return true
     }
 
