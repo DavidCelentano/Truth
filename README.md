@@ -3,7 +3,7 @@
 
 ##### Author: David Celentano
 
-##### Release Version: 1.5
+##### Release Version: 1.5.2
 
 ##### App Store Link: https://itunes.apple.com/us/app/truth-for-destiny/id1294016975?mt=8
 
