@@ -11,6 +11,8 @@ import SnapKit
 import RxSwift
 import RxCocoa
 import Flurry_iOS_SDK
+import StoreKit
+import Foundation
 
 class ViewController: UIViewController {
     
@@ -634,8 +636,17 @@ class ViewController: UIViewController {
         view.endEditing(true)
         // send API request
         api.fetchAccountId(for: username, console: console, destiny2Enabled: destiny2Enabled)
+        
+        // after 10 seconds, if the app has been launched 5 times or more, show rating popup
+        let timer = DispatchTime.now() + .seconds(10)
+        DispatchQueue.main.asyncAfter(deadline: timer) {
+            if UserDefaults.standard.integer(forKey: "launchCount") > 4 {
+                if #available(iOS 10.3, *) {
+                    SKStoreReviewController.requestReview()
+                }
+            }
+        }
     }
-    
 }
 
 // MARK: InfoViewControllerDelegate
