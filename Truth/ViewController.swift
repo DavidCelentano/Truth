@@ -203,6 +203,9 @@ class ViewController: UIViewController {
     private var filterButton: UIButton = {
         let b = UIButton(type: .system)
         b.setTitle("Filter", for: .normal)
+        b.layer.cornerRadius = 5
+        b.layer.borderWidth = 1
+        b.layer.borderColor = UIColor.white.cgColor
         b.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         b.titleLabel?.adjustsFontSizeToFitWidth = true
         b.tintColor = .white
