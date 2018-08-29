@@ -203,7 +203,9 @@ class ViewController: UIViewController {
     private var filterButton: UIButton = {
         let b = UIButton(type: .system)
         b.setTitle("Filter", for: .normal)
-        b.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        b.layer.cornerRadius = 5
+        b.layer.borderWidth = 1
+        b.layer.borderColor = UIColor.white.cgColor
         b.titleLabel?.adjustsFontSizeToFitWidth = true
         b.tintColor = .white
         b.addTarget(self, action: #selector(filterTapped), for: .touchUpInside)
@@ -384,8 +386,8 @@ class ViewController: UIViewController {
         scrollView.addSubview(filterButton)
         filterButton.snp.makeConstraints { make in
             make.centerY.equalTo(usernameTextField)
-            make.trailing.equalTo(usernameTextField.snp.leading).offset(-15)
-            make.leading.equalTo(scrollView).offset(5)
+            make.trailing.equalTo(usernameTextField.snp.leading).offset(-20)
+            make.leading.equalTo(scrollView).offset(15)
             make.height.equalTo(34)
         }
       

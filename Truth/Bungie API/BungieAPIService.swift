@@ -93,6 +93,7 @@ class BungieAPIService {
         }
         if let dict = myDict {
             secretKey = dict.value(forKey: "API_key") as? String
+            guard let _ = secretKey else { assertionFailure("No API Key"); return }
         }
     }
     
@@ -124,7 +125,7 @@ class BungieAPIService {
             if error != nil {
                 self?.isLoading.value = false
                 // analytics
-                Flurry.endTimedEvent("Search Time", withParameters: ["Type" : "D1 API Error Response"])
+                Flurry.endTimedEvent("Search_Time", withParameters: ["Type" : "D1 API Error Response"])
                 self?.returnError(with: "No Internet Connection 😞")
             }
         })
@@ -136,7 +137,7 @@ class BungieAPIService {
         // start loading state
         isLoading.value = true
         // analytics
-        Flurry.logEvent("Search Time", timed: true)
+        Flurry.logEvent("Search_Time", timed: true)
         // safetly pass the username as a query param
         let formattedUsername: String = username.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
         // set console type
@@ -266,7 +267,7 @@ class BungieAPIService {
             if error != nil {
                 self?.isLoading.value = false
                 // analytics
-                Flurry.endTimedEvent("Search Time", withParameters: ["Type" : "D2 API Error Response"])
+                Flurry.endTimedEvent("Search_Time", withParameters: ["Type" : "D2 API Error Response"])
                 self?.returnError(with: "No Internet Connection 😞")
             }
         })
@@ -367,14 +368,14 @@ class BungieAPIService {
             // stop loading state
             isLoading.value = false
             // analytics
-            Flurry.endTimedEvent("Search Time", withParameters: ["Type" : "Success - Account Stats"])
+            Flurry.endTimedEvent("Search_Time", withParameters: ["Type" : "Success - Account Stats"])
         } else {
             // analytics
             Flurry.logEvent("No PvP Data")
             overallCombatRating.value = "No CR Data"
             isLoading.value = false
             // analytics
-            Flurry.endTimedEvent("Search Time", withParameters: ["Type" : "Failure - Account Stats"])
+            Flurry.endTimedEvent("Search_Time", withParameters: ["Type" : "Failure - Account Stats"])
         }
     }
     
@@ -388,7 +389,7 @@ class BungieAPIService {
         info.value = message
         isLoading.value = false
         // analytics
-        Flurry.endTimedEvent("Search Time", withParameters: ["Type" : "Failure - Error: \(message)"])
+        Flurry.endTimedEvent("Search_Time", withParameters: ["Type" : "Failure - Error: \(message)"])
         subclass.value = ""
         lightLevel.value = ""
         primary.value = ""

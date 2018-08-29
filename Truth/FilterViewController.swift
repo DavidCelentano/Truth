@@ -34,7 +34,10 @@ class FilterViewController: UIViewController {
     
     private var dismissButton: UIButton = {
         let b = UIButton(type: .system)
-        b.setTitle("Dismiss", for: .normal)
+        b.setTitle("Done", for: .normal)
+        b.layer.cornerRadius = 5
+        b.layer.borderWidth = 1
+        b.layer.borderColor = UIColor.white.cgColor
         b.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         b.tintColor = .white
         b.addTarget(self, action: #selector(dismissTapped), for: .touchUpInside)
@@ -261,6 +264,7 @@ class FilterViewController: UIViewController {
         dismissButton.snp.makeConstraints { make in
             make.top.equalTo(scrollView).offset(15)
             make.leading.equalTo(scrollView).offset(15)
+            make.width.equalTo(60)
         }
         
         scrollView.addSubview(titleLabel)

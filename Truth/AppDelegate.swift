@@ -27,10 +27,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         if let dict = myDict {
             secretKey = dict.value(forKey: "Flurry_key") as? String
-            Flurry.startSession(secretKey, with: FlurrySessionBuilder
-                .init()
-                .withCrashReporting(true)
-                .withLogLevel(FlurryLogLevelAll))
+            if let secretKey = secretKey {
+                Flurry.startSession(secretKey, with: FlurrySessionBuilder
+                  .init()
+                  .withCrashReporting(true)
+                  .withAppVersion("1.6")
+                  .withLogLevel(FlurryLogLevelAll))
+            }
+            else {
+                assertionFailure("NO FLURRY KEY")
+            }
         }
         
         // MARK: Rating popup
