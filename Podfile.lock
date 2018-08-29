@@ -1,12 +1,12 @@
 PODS:
-  - Flurry-iOS-SDK/FlurryAds (8.3.0):
-    - Flurry-iOS-SDK/FlurrySDK
-  - Flurry-iOS-SDK/FlurrySDK (8.3.0)
+  - Flurry-iOS-SDK/FlurryAds (9.0.0):
+    - Flurry-iOS-SDK/FlurrySDK (~> 9.0.0)
+  - Flurry-iOS-SDK/FlurrySDK (9.0.0)
   - RxCocoa (4.0.0-beta.1):
     - RxSwift (~> 4.0.0-beta.1)
   - RxSwift (4.0.0-beta.1)
   - SnapKit (4.0.0)
-  - SwiftyJSON (3.1.4)
+  - SwiftyJSON (4.1.0)
 
 DEPENDENCIES:
   - Flurry-iOS-SDK/FlurryAds
@@ -25,11 +25,11 @@ SPEC REPOS:
     - SwiftyJSON
 
 SPEC CHECKSUMS:
-  Flurry-iOS-SDK: bd60421d26f3826edd1686770673f7b65990c057
+  Flurry-iOS-SDK: 58e48e417fee667154e4d240040b270b3734d28a
   RxCocoa: ca6cc0f4453145d90002d80df8f9c83dd8fb7338
   RxSwift: 29f07e0e72cc5b40f146c64cc520ea6a6a0c73e9
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
-  SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
+  SwiftyJSON: c29297daf073d2aa016295d5809cdd68045c39b3
 
 PODFILE CHECKSUM: e1064eb2f5e132e3771ccfdb02b7567971d8db65
 
