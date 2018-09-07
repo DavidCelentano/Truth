@@ -269,60 +269,17 @@ class ViewController: UIViewController {
     recentPlayersHeaderLabel.text = "Quick Search"
     
     // setup horizontal stack views
-    subclassStackView = UIStackView(arrangedSubviews: [subclassHeaderLabel, subclassDetailLabel])
-    subclassStackView.alignment = .center
-    subclassStackView.axis = .horizontal
-    subclassStackView.spacing = 15
-    
-    primaryStackView = UIStackView(arrangedSubviews: [primaryHeaderLabel, primaryDetailLabel])
-    primaryStackView.alignment = .center
-    primaryStackView.axis = .horizontal
-    primaryStackView.spacing = 15
-    
-    specialStackView = UIStackView(arrangedSubviews: [specialHeaderLabel, specialDetailLabel])
-    specialStackView.alignment = .center
-    specialStackView.axis = .horizontal
-    specialStackView.spacing = 15
-    
-    heavyStackView = UIStackView(arrangedSubviews: [heavyHeaderLabel, heavyDetailLabel])
-    heavyStackView.alignment = .center
-    heavyStackView.axis = .horizontal
-    heavyStackView.spacing = 15
-    
-    overallKDStackView = UIStackView(arrangedSubviews: [overallKDHeaderLabel, overallKDDetailLabel])
-    heavyStackView.alignment = .center
-    heavyStackView.axis = .horizontal
-    heavyStackView.spacing = 15
-    
-    overallKDAStackView = UIStackView(arrangedSubviews: [overallKDAHeaderLabel, overallKDADetailLabel])
-    heavyStackView.alignment = .center
-    heavyStackView.axis = .horizontal
-    heavyStackView.spacing = 15
-    
-    overallWinLossRatioStackView = UIStackView(arrangedSubviews: [overallWinLossRatioHeaderLabel, overallWinLossRatioDetailLabel])
-    heavyStackView.alignment = .center
-    heavyStackView.axis = .horizontal
-    heavyStackView.spacing = 15
-    
-    overallCombatRatingStackView = UIStackView(arrangedSubviews: [overallCombatRatingHeaderLabel, overallCombatRatingDetailLabel])
-    heavyStackView.alignment = .center
-    heavyStackView.axis = .horizontal
-    heavyStackView.spacing = 15
-    
-    weaponBestTypeStackView = UIStackView(arrangedSubviews: [weaponBestTypeHeaderLabel, weaponBestTypeDetaiLabel])
-    weaponBestTypeStackView.alignment = .center
-    weaponBestTypeStackView.axis = .horizontal
-    weaponBestTypeStackView.spacing = 15
-    
-    lightLevelStackView = UIStackView(arrangedSubviews: [lightLevelHeaderLabel, lightLevelDetailLabel])
-    lightLevelStackView.alignment = .center
-    lightLevelStackView.axis = .horizontal
-    lightLevelStackView.spacing = 15
-    
-    timePlayedStackView = UIStackView(arrangedSubviews: [timePlayedHeaderLabel, timePlayedDetailLabel])
-    timePlayedStackView.alignment = .center
-    timePlayedStackView.axis = .horizontal
-    timePlayedStackView.spacing = 15
+    subclassStackView = createStatStackView(with: [subclassHeaderLabel, subclassDetailLabel])
+    primaryStackView = createStatStackView(with: [primaryHeaderLabel, primaryDetailLabel])
+    specialStackView = createStatStackView(with: [specialHeaderLabel, specialDetailLabel])
+    heavyStackView = createStatStackView(with: [heavyHeaderLabel, heavyDetailLabel])
+    overallKDStackView = createStatStackView(with: [overallKDHeaderLabel, overallKDDetailLabel])
+    overallKDAStackView = createStatStackView(with: [overallKDAHeaderLabel, overallKDADetailLabel])
+    overallWinLossRatioStackView = createStatStackView(with: [overallWinLossRatioHeaderLabel, overallWinLossRatioDetailLabel])
+    overallCombatRatingStackView = createStatStackView(with: [overallCombatRatingHeaderLabel, overallCombatRatingDetailLabel])
+    weaponBestTypeStackView = createStatStackView(with: [weaponBestTypeHeaderLabel, weaponBestTypeDetaiLabel])
+    lightLevelStackView = createStatStackView(with: [lightLevelHeaderLabel, lightLevelDetailLabel])
+    timePlayedStackView = createStatStackView(with: [timePlayedHeaderLabel, timePlayedDetailLabel])
     
     
     // setup vertical stack views
@@ -674,6 +631,16 @@ class ViewController: UIViewController {
         }
       }
     }
+  }
+  
+  // MARK: Helper Methods
+  
+  private func createStatStackView(with views: [UIView]) -> UIStackView {
+    let stackView = UIStackView(arrangedSubviews: views)
+    stackView.alignment = .center
+    stackView.axis = .horizontal
+    stackView.spacing = 15
+    return stackView
   }
 }
 
