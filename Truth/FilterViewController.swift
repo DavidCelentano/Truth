@@ -161,9 +161,9 @@ class FilterViewController: UIViewController {
         specialLabel.text = "Special Weapon"
         heavyLabel.text = "Heavy Weapon"
         lightLevelLabel.text = "Light Level"
-        overallKDLabel.text = "Overall KD: Kills / Deaths ratio for all characters"
-        overallKDALabel.text = "Overall KDA: Kills + [Assists / 2] / Deaths ratio for all characters"
-        overallWinLossLabel.text = "Overall Win/Loss: Wins / Losses ratio for all characters"
+        overallKDLabel.text = "Overall KD: Kills / Deaths ratio for current character"
+        overallKDALabel.text = "Overall KDA: Kills + [Assists / 2] / Deaths ratio for current character"
+        overallWinLossLabel.text = "Overall Win/Loss: Wins / Losses ratio for current character"
         overallCombatRatingLabel.text = "Overall Combat Rating: An assessment of your skill and teamwork. It factors in your score compared to others in each match and penalizes you for quitting."
         timePlayedLabel.text = "Hours played on current character"
 
