@@ -80,6 +80,8 @@ class BungieAPIService {
   var overallWinLossRatio: Variable<String> = Variable("")
   var overallKD: Variable<String> = Variable("")
   var overallKDA: Variable<String> = Variable("")
+  var weaponBestType: Variable<String> = Variable("")
+  
   var info: Variable<String> = Variable("")
   var recentPlayers: Variable<[String]> = Variable([])
   var isLoading: Variable<Bool> = Variable(false)
@@ -230,6 +232,11 @@ class BungieAPIService {
       overallWinLossRatio.value = "  \(winLoss)"
     } else {
       overallWinLossRatio.value = "No W/L Data"
+    }
+    if let bestWeapon = jsonData["Response"]["mergedAllCharacters"]["results"]["allPvP"]["allTime"]["weaponBestType"]["basic"]["displayValue"].string {
+      weaponBestType.value = "\(bestWeapon)"
+    } else {
+      weaponBestType.value = "No Best Weapon Data"
     }
     if let combatRating = jsonData["Response"]["mergedAllCharacters"]["results"]["allPvP"]["allTime"]["combatRating"]["basic"]["displayValue"].string {
       overallCombatRating.value = "  \(combatRating)"
@@ -396,6 +403,11 @@ class BungieAPIService {
     } else {
       overallWinLossRatio.value = "No W/L Data"
     }
+    if let bestWeapon = jsonData["Response"]["allPvP"]["allTime"]["weaponBestType"]["basic"]["displayValue"].string {
+      weaponBestType.value = "\(bestWeapon)"
+    } else {
+      weaponBestType.value = "No Best Weapon Data"
+    }
     if let combatRating = jsonData["Response"]["allPvP"]["allTime"]["combatRating"]["basic"]["displayValue"].string {
       overallCombatRating.value = "  \(combatRating)"
       // stop loading state
@@ -432,6 +444,7 @@ class BungieAPIService {
     overallWinLossRatio.value = ""
     overallKD.value = ""
     overallKDA.value = ""
+    weaponBestType.value = ""
     hoursPlayed.value = ""
   }
 }
