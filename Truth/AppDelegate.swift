@@ -31,8 +31,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 Flurry.startSession(secretKey, with: FlurrySessionBuilder
                   .init()
                   .withCrashReporting(true)
-                  .withAppVersion("1.6")
-                  .withLogLevel(FlurryLogLevelAll))
+                  .withAppVersion("1.6.1")
+                  .withLogLevel(FlurryLogLevelNone))
             }
             else {
                 assertionFailure("NO FLURRY KEY")
