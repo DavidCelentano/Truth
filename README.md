@@ -9,4 +9,4 @@
 
 Truth is an app designed to give Destiny players https://www.destinythegame.com a competitive advantage. Users input the names of their oppenent(s) and Truth quickly delivers the class, level, and weapons of these players that can be quickly updated to reflect real time changes. This gives users of truth an advantage in Destiny's highly competitive PvP game modes.
 
-##### 5,000+ Users 🎉
+##### 6,500+ Users 🎉
