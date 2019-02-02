@@ -80,6 +80,8 @@ class BungieAPIService {
   var overallWinLossRatio: Variable<String> = Variable("")
   var overallKD: Variable<String> = Variable("")
   var overallKDA: Variable<String> = Variable("")
+  var weaponBestType: Variable<String> = Variable("")
+  
   var info: Variable<String> = Variable("")
   var recentPlayers: Variable<[String]> = Variable([])
   var isLoading: Variable<Bool> = Variable(false)
@@ -217,22 +219,27 @@ class BungieAPIService {
   private func parseD1AccountStats(from data: Data) {
     let jsonData = JSON(data)
     if let kd = jsonData["Response"]["mergedAllCharacters"]["results"]["allPvP"]["allTime"]["killsDeathsRatio"]["basic"]["displayValue"].string {
-      overallKD.value = "  \(kd)" //TODO UI issue with spacing
+      overallKD.value = "\(kd)"
     } else {
       overallKD.value = "No KD Data"
     }
     if let kda = jsonData["Response"]["mergedAllCharacters"]["results"]["allPvP"]["allTime"]["killsDeathsAssists"]["basic"]["displayValue"].string {
-      overallKDA.value = "  \(kda)"
+      overallKDA.value = "\(kda)"
     } else {
       overallKDA.value = "No KDA Data"
     }
     if let winLoss = jsonData["Response"]["mergedAllCharacters"]["results"]["allPvP"]["allTime"]["winLossRatio"]["basic"]["displayValue"].string {
-      overallWinLossRatio.value = "  \(winLoss)"
+      overallWinLossRatio.value = "\(winLoss)"
     } else {
       overallWinLossRatio.value = "No W/L Data"
     }
+    if let bestWeapon = jsonData["Response"]["mergedAllCharacters"]["results"]["allPvP"]["allTime"]["weaponBestType"]["basic"]["displayValue"].string {
+      weaponBestType.value = "\(bestWeapon)"
+    } else {
+      weaponBestType.value = "No Best Weapon Data"
+    }
     if let combatRating = jsonData["Response"]["mergedAllCharacters"]["results"]["allPvP"]["allTime"]["combatRating"]["basic"]["displayValue"].string {
-      overallCombatRating.value = "  \(combatRating)"
+      overallCombatRating.value = "\(combatRating)"
       // stop loading state
       isLoading.value = false
       // analytics
@@ -382,22 +389,27 @@ class BungieAPIService {
   private func parseD2AccountStats(from data: Data) {
     let jsonData = JSON(data)
     if let kd = jsonData["Response"]["allPvP"]["allTime"]["killsDeathsRatio"]["basic"]["displayValue"].string {
-      overallKD.value = "  \(kd)" //TODO UI issue with spacing
+      overallKD.value = "\(kd)"
     } else {
       overallKD.value = "No KD Data"
     }
     if let kda = jsonData["Response"]["allPvP"]["allTime"]["killsDeathsAssists"]["basic"]["displayValue"].string {
-      overallKDA.value = "  \(kda)"
+      overallKDA.value = "\(kda)"
     } else {
       overallKDA.value = "No KDA Data"
     }
     if let winLoss = jsonData["Response"]["allPvP"]["allTime"]["winLossRatio"]["basic"]["displayValue"].string {
-      overallWinLossRatio.value = "  \(winLoss)"
+      overallWinLossRatio.value = "\(winLoss)"
     } else {
       overallWinLossRatio.value = "No W/L Data"
     }
+    if let bestWeapon = jsonData["Response"]["allPvP"]["allTime"]["weaponBestType"]["basic"]["displayValue"].string {
+      weaponBestType.value = "\(bestWeapon)"
+    } else {
+      weaponBestType.value = "No Best Weapon Data"
+    }
     if let combatRating = jsonData["Response"]["allPvP"]["allTime"]["combatRating"]["basic"]["displayValue"].string {
-      overallCombatRating.value = "  \(combatRating)"
+      overallCombatRating.value = "\(combatRating)"
       // stop loading state
       isLoading.value = false
       // analytics
@@ -432,6 +444,7 @@ class BungieAPIService {
     overallWinLossRatio.value = ""
     overallKD.value = ""
     overallKDA.value = ""
+    weaponBestType.value = ""
     hoursPlayed.value = ""
   }
 }
