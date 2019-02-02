@@ -219,17 +219,17 @@ class BungieAPIService {
   private func parseD1AccountStats(from data: Data) {
     let jsonData = JSON(data)
     if let kd = jsonData["Response"]["mergedAllCharacters"]["results"]["allPvP"]["allTime"]["killsDeathsRatio"]["basic"]["displayValue"].string {
-      overallKD.value = "  \(kd)" //TODO UI issue with spacing
+      overallKD.value = "\(kd)"
     } else {
       overallKD.value = "No KD Data"
     }
     if let kda = jsonData["Response"]["mergedAllCharacters"]["results"]["allPvP"]["allTime"]["killsDeathsAssists"]["basic"]["displayValue"].string {
-      overallKDA.value = "  \(kda)"
+      overallKDA.value = "\(kda)"
     } else {
       overallKDA.value = "No KDA Data"
     }
     if let winLoss = jsonData["Response"]["mergedAllCharacters"]["results"]["allPvP"]["allTime"]["winLossRatio"]["basic"]["displayValue"].string {
-      overallWinLossRatio.value = "  \(winLoss)"
+      overallWinLossRatio.value = "\(winLoss)"
     } else {
       overallWinLossRatio.value = "No W/L Data"
     }
@@ -239,7 +239,7 @@ class BungieAPIService {
       weaponBestType.value = "No Best Weapon Data"
     }
     if let combatRating = jsonData["Response"]["mergedAllCharacters"]["results"]["allPvP"]["allTime"]["combatRating"]["basic"]["displayValue"].string {
-      overallCombatRating.value = "  \(combatRating)"
+      overallCombatRating.value = "\(combatRating)"
       // stop loading state
       isLoading.value = false
       // analytics
@@ -389,17 +389,17 @@ class BungieAPIService {
   private func parseD2AccountStats(from data: Data) {
     let jsonData = JSON(data)
     if let kd = jsonData["Response"]["allPvP"]["allTime"]["killsDeathsRatio"]["basic"]["displayValue"].string {
-      overallKD.value = "  \(kd)" //TODO UI issue with spacing
+      overallKD.value = "\(kd)"
     } else {
       overallKD.value = "No KD Data"
     }
     if let kda = jsonData["Response"]["allPvP"]["allTime"]["killsDeathsAssists"]["basic"]["displayValue"].string {
-      overallKDA.value = "  \(kda)"
+      overallKDA.value = "\(kda)"
     } else {
       overallKDA.value = "No KDA Data"
     }
     if let winLoss = jsonData["Response"]["allPvP"]["allTime"]["winLossRatio"]["basic"]["displayValue"].string {
-      overallWinLossRatio.value = "  \(winLoss)"
+      overallWinLossRatio.value = "\(winLoss)"
     } else {
       overallWinLossRatio.value = "No W/L Data"
     }
@@ -409,7 +409,7 @@ class BungieAPIService {
       weaponBestType.value = "No Best Weapon Data"
     }
     if let combatRating = jsonData["Response"]["allPvP"]["allTime"]["combatRating"]["basic"]["displayValue"].string {
-      overallCombatRating.value = "  \(combatRating)"
+      overallCombatRating.value = "\(combatRating)"
       // stop loading state
       isLoading.value = false
       // analytics
