@@ -10,6 +10,6 @@ import UIKit
 
 // App wide colors
 extension UIColor {
-    open static var truthBlue = UIColor.init(red: 9.0/255.0, green: 83.0/255.0, blue: 105.0/255.0, alpha: 1.0)
+  public static var truthBlue = UIColor.init(red: 9.0/255.0, green: 83.0/255.0, blue: 105.0/255.0, alpha: 1.0)
 }
 

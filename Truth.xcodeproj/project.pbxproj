@@ -8,53 +8,31 @@
 
 /* Begin PBXBuildFile section */
 		0019A63B1F8C121B0015C451 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0019A63A1F8C121B0015C451 /* Utilities.swift */; };
-		00B07D161F8665A700DB3E59 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B07D151F8665A700DB3E59 /* AppDelegate.swift */; };
 		00B07D181F8665A700DB3E59 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B07D171F8665A700DB3E59 /* ViewController.swift */; };
-		00B07D1B1F8665A700DB3E59 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00B07D191F8665A700DB3E59 /* Main.storyboard */; };
 		00B07D1D1F8665A700DB3E59 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00B07D1C1F8665A700DB3E59 /* Assets.xcassets */; };
-		00B07D201F8665A700DB3E59 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00B07D1E1F8665A700DB3E59 /* LaunchScreen.storyboard */; };
-		00B07D2B1F8665A700DB3E59 /* TruthTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B07D2A1F8665A700DB3E59 /* TruthTests.swift */; };
 		00B07D361F86683100DB3E59 /* UIColor+Truth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B07D351F86683100DB3E59 /* UIColor+Truth.swift */; };
 		00B07D391F8678CF00DB3E59 /* BungieAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B07D381F8678CF00DB3E59 /* BungieAPIService.swift */; };
 		00B07D3B1F86892600DB3E59 /* Secrets.plist in Resources */ = {isa = PBXBuildFile; fileRef = 00B07D3A1F86892600DB3E59 /* Secrets.plist */; };
-		532217401D7C6827C608BFB8 /* Pods_Truth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02511EFCDAB4D2567D35E3CA /* Pods_Truth.framework */; };
+		848955A425260ECF003590CE /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848955A325260ECF003590CE /* SearchView.swift */; };
+		848955C525261579003590CE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 848955C425261579003590CE /* LaunchScreen.storyboard */; };
+		8489561E25261DD9003590CE /* TruthApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8489561D25261DD9003590CE /* TruthApp.swift */; };
 		84DE5FD31FB4F45000A9198E /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DE5FD21FB4F45000A9198E /* FilterViewController.swift */; };
-		CD90824D6E3E2DC2B789E63A /* Pods_TruthTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A1140C565EC04E5CCCB7C3 /* Pods_TruthTests.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		00B07D271F8665A700DB3E59 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 00B07D0A1F8665A700DB3E59 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 00B07D111F8665A700DB3E59;
-			remoteInfo = Truth;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		0019A63A1F8C121B0015C451 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		00B07D121F8665A700DB3E59 /* Truth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Truth.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		00B07D151F8665A700DB3E59 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		00B07D171F8665A700DB3E59 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		00B07D1A1F8665A700DB3E59 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		00B07D1C1F8665A700DB3E59 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		00B07D1F1F8665A700DB3E59 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		00B07D211F8665A700DB3E59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00B07D261F8665A700DB3E59 /* TruthTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TruthTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		00B07D2A1F8665A700DB3E59 /* TruthTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruthTests.swift; sourceTree = "<group>"; };
-		00B07D2C1F8665A700DB3E59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00B07D351F86683100DB3E59 /* UIColor+Truth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Truth.swift"; sourceTree = "<group>"; };
 		00B07D381F8678CF00DB3E59 /* BungieAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BungieAPIService.swift; sourceTree = "<group>"; };
 		00B07D3A1F86892600DB3E59 /* Secrets.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Secrets.plist; sourceTree = "<group>"; };
-		02511EFCDAB4D2567D35E3CA /* Pods_Truth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Truth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		1CAB17B900CAFCA4DD8D28FC /* Pods-TruthTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TruthTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TruthTests/Pods-TruthTests.debug.xcconfig"; sourceTree = "<group>"; };
-		4702DA158F500F8A9CEFAC03 /* Pods-TruthTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TruthTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TruthTests/Pods-TruthTests.release.xcconfig"; sourceTree = "<group>"; };
-		67A1140C565EC04E5CCCB7C3 /* Pods_TruthTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TruthTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		843B7CE321134BE80022640D /* Truth.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Truth.entitlements; sourceTree = "<group>"; };
+		848955A325260ECF003590CE /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		848955A725260F32003590CE /* Truth.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Truth.entitlements; sourceTree = "<group>"; };
+		848955C425261579003590CE /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		848955CD25261886003590CE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8489561D25261DD9003590CE /* TruthApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TruthApp.swift; sourceTree = "<group>"; };
 		84DE5FD21FB4F45000A9198E /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
-		DABB6E2B5166C5156EE726A2 /* Pods-Truth.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Truth.release.xcconfig"; path = "Pods/Target Support Files/Pods-Truth/Pods-Truth.release.xcconfig"; sourceTree = "<group>"; };
-		E643CA3A973ABCD09EC64D0A /* Pods-Truth.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Truth.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Truth/Pods-Truth.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,15 +40,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				532217401D7C6827C608BFB8 /* Pods_Truth.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		00B07D231F8665A700DB3E59 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				CD90824D6E3E2DC2B789E63A /* Pods_TruthTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,10 +50,7 @@
 			isa = PBXGroup;
 			children = (
 				00B07D141F8665A700DB3E59 /* Truth */,
-				00B07D291F8665A700DB3E59 /* TruthTests */,
 				00B07D131F8665A700DB3E59 /* Products */,
-				82287123E354A3428CA2C41C /* Pods */,
-				66A44C859016956156B1B14B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -92,7 +58,6 @@
 			isa = PBXGroup;
 			children = (
 				00B07D121F8665A700DB3E59 /* Truth.app */,
-				00B07D261F8665A700DB3E59 /* TruthTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -100,12 +65,14 @@
 		00B07D141F8665A700DB3E59 /* Truth */ = {
 			isa = PBXGroup;
 			children = (
-				843B7CE321134BE80022640D /* Truth.entitlements */,
-				00B07D211F8665A700DB3E59 /* Info.plist */,
+				848955A725260F32003590CE /* Truth.entitlements */,
+				848955CD25261886003590CE /* Info.plist */,
 				00B07D3A1F86892600DB3E59 /* Secrets.plist */,
-				00B07D151F8665A700DB3E59 /* AppDelegate.swift */,
+				8489561D25261DD9003590CE /* TruthApp.swift */,
+				848955A325260ECF003590CE /* SearchView.swift */,
 				00B07D171F8665A700DB3E59 /* ViewController.swift */,
 				84DE5FD21FB4F45000A9198E /* FilterViewController.swift */,
+				848955C425261579003590CE /* LaunchScreen.storyboard */,
 				00B07D3E1F89079400DB3E59 /* Bungie API */,
 				00B07D371F866B7800DB3E59 /* UI */,
 				0019A63A1F8C121B0015C451 /* Utilities.swift */,
@@ -113,22 +80,11 @@
 			path = Truth;
 			sourceTree = "<group>";
 		};
-		00B07D291F8665A700DB3E59 /* TruthTests */ = {
-			isa = PBXGroup;
-			children = (
-				00B07D2A1F8665A700DB3E59 /* TruthTests.swift */,
-				00B07D2C1F8665A700DB3E59 /* Info.plist */,
-			);
-			path = TruthTests;
-			sourceTree = "<group>";
-		};
 		00B07D371F866B7800DB3E59 /* UI */ = {
 			isa = PBXGroup;
 			children = (
 				00B07D351F86683100DB3E59 /* UIColor+Truth.swift */,
 				00B07D1C1F8665A700DB3E59 /* Assets.xcassets */,
-				00B07D191F8665A700DB3E59 /* Main.storyboard */,
-				00B07D1E1F8665A700DB3E59 /* LaunchScreen.storyboard */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -141,26 +97,6 @@
 			path = "Bungie API";
 			sourceTree = "<group>";
 		};
-		66A44C859016956156B1B14B /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				02511EFCDAB4D2567D35E3CA /* Pods_Truth.framework */,
-				67A1140C565EC04E5CCCB7C3 /* Pods_TruthTests.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		82287123E354A3428CA2C41C /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				E643CA3A973ABCD09EC64D0A /* Pods-Truth.debug.xcconfig */,
-				DABB6E2B5166C5156EE726A2 /* Pods-Truth.release.xcconfig */,
-				1CAB17B900CAFCA4DD8D28FC /* Pods-TruthTests.debug.xcconfig */,
-				4702DA158F500F8A9CEFAC03 /* Pods-TruthTests.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -168,11 +104,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00B07D2F1F8665A700DB3E59 /* Build configuration list for PBXNativeTarget "Truth" */;
 			buildPhases = (
-				5875F8D873FAB8C00E8B3460 /* [CP] Check Pods Manifest.lock */,
 				00B07D0E1F8665A700DB3E59 /* Sources */,
 				00B07D0F1F8665A700DB3E59 /* Frameworks */,
 				00B07D101F8665A700DB3E59 /* Resources */,
-				2D5CA679A6B2A299F8829E6C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -183,25 +117,6 @@
 			productReference = 00B07D121F8665A700DB3E59 /* Truth.app */;
 			productType = "com.apple.product-type.application";
 		};
-		00B07D251F8665A700DB3E59 /* TruthTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 00B07D321F8665A700DB3E59 /* Build configuration list for PBXNativeTarget "TruthTests" */;
-			buildPhases = (
-				F85B93B0794299D91AA83B6B /* [CP] Check Pods Manifest.lock */,
-				00B07D221F8665A700DB3E59 /* Sources */,
-				00B07D231F8665A700DB3E59 /* Frameworks */,
-				00B07D241F8665A700DB3E59 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				00B07D281F8665A700DB3E59 /* PBXTargetDependency */,
-			);
-			name = TruthTests;
-			productName = TruthTests;
-			productReference = 00B07D261F8665A700DB3E59 /* TruthTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -209,22 +124,18 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0900;
-				LastUpgradeCheck = 0940;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "David Celentano";
 				TargetAttributes = {
 					00B07D111F8665A700DB3E59 = {
 						CreatedOnToolsVersion = 9.0;
+						LastSwiftMigration = 1200;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 0;
 							};
 						};
-					};
-					00B07D251F8665A700DB3E59 = {
-						CreatedOnToolsVersion = 9.0;
-						ProvisioningStyle = Automatic;
-						TestTargetID = 00B07D111F8665A700DB3E59;
 					};
 				};
 			};
@@ -242,7 +153,6 @@
 			projectRoot = "";
 			targets = (
 				00B07D111F8665A700DB3E59 /* Truth */,
-				00B07D251F8665A700DB3E59 /* TruthTests */,
 			);
 		};
 /* End PBXProject section */
@@ -252,86 +162,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				848955C525261579003590CE /* LaunchScreen.storyboard in Resources */,
 				00B07D3B1F86892600DB3E59 /* Secrets.plist in Resources */,
-				00B07D201F8665A700DB3E59 /* LaunchScreen.storyboard in Resources */,
 				00B07D1D1F8665A700DB3E59 /* Assets.xcassets in Resources */,
-				00B07D1B1F8665A700DB3E59 /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		00B07D241F8665A700DB3E59 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		2D5CA679A6B2A299F8829E6C /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Truth/Pods-Truth-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Flurry-iOS-SDK/Flurry_iOS_SDK.framework",
-				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
-				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Flurry_iOS_SDK.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Truth/Pods-Truth-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		5875F8D873FAB8C00E8B3460 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Truth-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F85B93B0794299D91AA83B6B /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-TruthTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		00B07D0E1F8665A700DB3E59 /* Sources */ = {
@@ -341,48 +178,14 @@
 				00B07D361F86683100DB3E59 /* UIColor+Truth.swift in Sources */,
 				00B07D181F8665A700DB3E59 /* ViewController.swift in Sources */,
 				00B07D391F8678CF00DB3E59 /* BungieAPIService.swift in Sources */,
+				848955A425260ECF003590CE /* SearchView.swift in Sources */,
 				0019A63B1F8C121B0015C451 /* Utilities.swift in Sources */,
 				84DE5FD31FB4F45000A9198E /* FilterViewController.swift in Sources */,
-				00B07D161F8665A700DB3E59 /* AppDelegate.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		00B07D221F8665A700DB3E59 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				00B07D2B1F8665A700DB3E59 /* TruthTests.swift in Sources */,
+				8489561E25261DD9003590CE /* TruthApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		00B07D281F8665A700DB3E59 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 00B07D111F8665A700DB3E59 /* Truth */;
-			targetProxy = 00B07D271F8665A700DB3E59 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		00B07D191F8665A700DB3E59 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				00B07D1A1F8665A700DB3E59 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		00B07D1E1F8665A700DB3E59 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				00B07D1F1F8665A700DB3E59 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		00B07D2D1F8665A700DB3E59 /* Debug */ = {
@@ -410,6 +213,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -435,7 +239,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -469,6 +273,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -488,7 +293,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -498,72 +303,40 @@
 		};
 		00B07D301F8665A700DB3E59 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E643CA3A973ABCD09EC64D0A /* Pods-Truth.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Truth/Truth.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Z89GBD62Z5;
 				INFOPLIST_FILE = Truth/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dcelentano.Truth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
 		00B07D311F8665A700DB3E59 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DABB6E2B5166C5156EE726A2 /* Pods-Truth.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Truth/Truth.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Z89GBD62Z5;
 				INFOPLIST_FILE = Truth/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 2.0.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dcelentano.Truth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		00B07D331F8665A700DB3E59 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1CAB17B900CAFCA4DD8D28FC /* Pods-TruthTests.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Z89GBD62Z5;
-				INFOPLIST_FILE = TruthTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.dcelentano.TruthTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Truth.app/Truth";
-			};
-			name = Debug;
-		};
-		00B07D341F8665A700DB3E59 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4702DA158F500F8A9CEFAC03 /* Pods-TruthTests.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Z89GBD62Z5;
-				INFOPLIST_FILE = TruthTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.dcelentano.TruthTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Truth.app/Truth";
 			};
 			name = Release;
 		};
@@ -584,15 +357,6 @@
 			buildConfigurations = (
 				00B07D301F8665A700DB3E59 /* Debug */,
 				00B07D311F8665A700DB3E59 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		00B07D321F8665A700DB3E59 /* Build configuration list for PBXNativeTarget "TruthTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				00B07D331F8665A700DB3E59 /* Debug */,
-				00B07D341F8665A700DB3E59 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
