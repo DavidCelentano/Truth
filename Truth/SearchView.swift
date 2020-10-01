@@ -11,16 +11,19 @@ import SwiftUI
 struct SearchView: View {
   private let bungieAPI = BungieAPI()
   @State private var username = "Hurk"
+  @State private var account = Account(characterIds: [])
   
     var body: some View {
       VStack {
         TextField("Username", text: $username)
-          .frame(width: 150, height: 30, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+          .frame(width: 150, height: 30, alignment: .center)
         Button("Search") {
-          bungieAPI.getMembershipID(username: username, platform: .xbox) { id in
-            print(id)
+          bungieAPI.getAccount(username: username, platform: .xbox) { account in
+            self.account = account
           }
         }
+        Text(account.characterIds.first ?? "N/A")
+        Text(account.characterIds.last ?? "N/A")
       }
     }
 }

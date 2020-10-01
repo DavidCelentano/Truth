@@ -8,15 +8,15 @@
 
 import Foundation
 
-struct MembershipID: Codable {
-  let response: [Response]
+struct MembershipId: Codable {
+  let response: [MembershipResponse]
   
   enum CodingKeys : String, CodingKey {
     case response = "Response"
   }
 }
 
-struct Response: Codable {
+struct MembershipResponse: Codable {
   let membershipId: String
   
   enum CodingKeys : String, CodingKey {

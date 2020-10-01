@@ -1,5 +1,5 @@
 //
-//  GuardianInfo.swift
+//  Account.swift
 //  Truth
 //
 //  Created by David Celentano on 10/1/20.
@@ -8,6 +8,6 @@
 
 import Foundation
 
-struct GuardianInfo: Codable {
-  
+struct Account {
+  let characterIds: [String]
 }
