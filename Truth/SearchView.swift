@@ -9,8 +9,19 @@
 import SwiftUI
 
 struct SearchView: View {
+  private let bungieAPI = BungieAPI()
+  @State private var username = "Hurk"
+  
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+      VStack {
+        TextField("Username", text: $username)
+          .frame(width: 150, height: 30, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+        Button("Search") {
+          bungieAPI.getMembershipID(username: username, platform: .xbox) { id in
+            print(id)
+          }
+        }
+      }
     }
 }
 

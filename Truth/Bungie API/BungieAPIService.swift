@@ -32,19 +32,19 @@
 //
 //// Handles all requests and data parsing from Bungie.net
 //class BungieAPIService {
-//  
+//
 //  // secret key needed for API access
 //  private var secretKey: String?
-//  
+//
 //  // console identifier
 //  private var consoleId = "1"
-//  
+//
 //  // bool for if we're looking up D1 or D2 stats
 //  private var destiny2Enabled: Bool = true
-//  
+//
 //  // last searched username for history
 //  private var lastUsername: String?
-//  
+//
 //  // key to make requests for a user
 //  private var accountId: String? {
 //    // once we get an account id, we want to fetch the account summary
@@ -68,7 +68,7 @@
 //      }
 //    }
 //  }
-//  
+//
 //  // Observable vars for character stats
 //  var subclass: Variable<String> = Variable("")
 //  var lightLevel: Variable<String> = Variable("")
@@ -81,12 +81,12 @@
 //  var overallKD: Variable<String> = Variable("")
 //  var overallKDA: Variable<String> = Variable("")
 //  var weaponBestType: Variable<String> = Variable("")
-//  
+//
 //  var info: Variable<String> = Variable("")
 //  var recentPlayers: Variable<[String]> = Variable([])
 //  var isLoading: Variable<Bool> = Variable(false)
-//  
-//  
+//
+//
 //  init() {
 //    // extract secret key
 //    var myDict: NSDictionary?
@@ -98,9 +98,9 @@
 //      guard let _ = secretKey else { assertionFailure("No API Key"); return }
 //    }
 //  }
-//  
+//
 //  // MARK: Destiny 1 API
-//  
+//
 //  private func sendDestiny1(request bungieAPIRequest: String, type: RequestType) {
 //    // ensure secret key exists
 //    guard let key = secretKey else { assertionFailure("SECRET API KEY NOT FOUND"); return }
@@ -133,7 +133,7 @@
 //    })
 //    task.resume()
 //  }
-//  
+//
 //  // gather initial account Id for further calls
 //  func fetchAccountId(for username: String, console: Console, destiny2Enabled: Bool) {
 //    // start loading state
@@ -162,20 +162,20 @@
 //      sendDestiny1(request: "/SearchDestinyPlayer/\(consoleId)/\(formattedUsername)/", type: .accountId)
 //    }
 //  }
-//  
+//
 //  // gather account data for the current account Id
 //  private func fetchAccountSummary(with accountId: String) {
 //    sendDestiny1(request: "/\(consoleId)/Account/\(accountId)/Summary/", type: .accountSummary)
 //  }
-//  
+//
 //  // gather data on a specified item
 //  private func fetchItemInfo(for itemHash: String, type: RequestType) {
 //    sendDestiny1(request: "/Manifest/InventoryItem/\(itemHash)", type: type)
 //  }
-//  
-//  
+//
+//
 //  // MARK: Destiny 1 Parser Methods
-//  
+//
 //  // extract account Id
 //  private func parseAccountId(from data: Data) -> String? {
 //    let jsonData = JSON(data)
@@ -184,7 +184,7 @@
 //    }
 //    return nil
 //  }
-//  
+//
 //  // extract character stats and item hash values from account data (the hash values will be fetched for further data)
 //  private func parseAccountSummary(from data: Data) {
 //    let jsonData = JSON(data)
@@ -215,7 +215,7 @@
 //      sendDestiny1(request: "/Stats/Account/\(consoleId)/\(id)/", type: .accountStats)
 //    }
 //  }
-//  
+//
 //  private func parseD1AccountStats(from data: Data) {
 //    let jsonData = JSON(data)
 //    if let kd = jsonData["Response"]["mergedAllCharacters"]["results"]["allPvP"]["allTime"]["killsDeathsRatio"]["basic"]["displayValue"].string {
@@ -253,7 +253,7 @@
 //      Flurry.endTimedEvent("Search_Time", withParameters: ["Type" : "Failure - Account Stats"])
 //    }
 //  }
-//  
+//
 //  // extract name from item data
 //  private func parseItemInfo(from data: Data, type: RequestType) {
 //    let jsonData = JSON(data)
@@ -272,13 +272,13 @@
 //      }
 //    }
 //  }
-//  
+//
 //  // MARK: -----------------------------------------
-//  
+//
 //  // MARK: Destiny 2 API
-//  
+//
 //  private var d2AccountId: String?
-//  
+//
 //  private func sendDestiny2(request bungieAPIRequest: String, type: RequestType) {
 //    // ensure secret key exists
 //    guard let key = secretKey else { assertionFailure("SECRET API KEY NOT FOUND"); return }
@@ -313,28 +313,28 @@
 //    })
 //    task.resume()
 //  }
-//  
+//
 //  private func d2FetchAccountSummary(for accountId: String) {
 //    d2AccountId = accountId
 //    sendDestiny2(request: "/\(consoleId)/Profile/\(accountId)/?components=100,200", type: .accountSummary)
 //  }
-//  
+//
 //  private func d2FetchInventorySummary(for characaterId: String) {
 //    guard let accountId = d2AccountId else { assertionFailure("\(#function) no id found"); return }
 //    sendDestiny2(request: "/\(consoleId)/Profile/\(accountId)/character/\(characaterId)/?components=205", type: .inventorySummary)
-//    
+//
 //  }
-//  
+//
 //  private func d2FetchAccountStats(for accountId: String, characterId: String) {
 //    sendDestiny2(request: "/\(consoleId)/Account/\(accountId)/Character/\(characterId)/Stats/", type: .accountStats)
 //  }
-//  
+//
 //  private func d2FetchItemInfo(for itemHash: String, type: RequestType) {
 //    sendDestiny2(request: "/Manifest/DestinyInventoryItemDefinition/\(itemHash)", type: type)
 //  }
-//  
+//
 //  // MARK: Destiny 2 Parser Methods
-//  
+//
 //  private func d2ParseAccountSummary(from data: Data) {
 //    let jsonData = JSON(data)
 //    // an account must have at least one character to be valid
@@ -351,7 +351,7 @@
 //    // fetch performance stats for all characters
 //    d2FetchAccountStats(for: d2AccountId!, characterId: recentCharacterId)
 //  }
-//  
+//
 //  private func d2ParseInventorySummary(from data: Data) {
 //    let jsonData = JSON(data)
 //    if let primaryHash = jsonData["Response"]["equipment"]["data"]["items"][0]["itemHash"].number {
@@ -367,7 +367,7 @@
 //      d2FetchItemInfo(for: String(describing: subclassHash), type: .subclass)
 //    }
 //  }
-//  
+//
 //  private func d2ParseItemInfo(from data: Data, type: RequestType) {
 //    let jsonData = JSON(data)
 //    guard let itemName = jsonData["Response"]["displayProperties"]["name"].string else { assertionFailure("stat not found"); return }
@@ -385,7 +385,7 @@
 //      return
 //    }
 //  }
-//  
+//
 //  private func parseD2AccountStats(from data: Data) {
 //    let jsonData = JSON(data)
 //    if let kd = jsonData["Response"]["allPvP"]["allTime"]["killsDeathsRatio"]["basic"]["displayValue"].string {
@@ -423,9 +423,9 @@
 //      Flurry.endTimedEvent("Search_Time", withParameters: ["Type" : "Failure - Account Stats"])
 //    }
 //  }
-//  
+//
 //  // MARK: Helper Methods
-//  
+//
 //  // clears all existing character data
 //  private func returnError(with message: String) {
 //    // analytics

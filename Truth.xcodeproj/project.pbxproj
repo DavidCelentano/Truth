@@ -16,6 +16,10 @@
 		848955A425260ECF003590CE /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848955A325260ECF003590CE /* SearchView.swift */; };
 		848955C525261579003590CE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 848955C425261579003590CE /* LaunchScreen.storyboard */; };
 		8489561E25261DD9003590CE /* TruthApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8489561D25261DD9003590CE /* TruthApp.swift */; };
+		8489562225262111003590CE /* GuardianInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8489562125262111003590CE /* GuardianInfo.swift */; };
+		848956252526242D003590CE /* MembershipID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848956242526242D003590CE /* MembershipID.swift */; };
+		8489562825262649003590CE /* BungieAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8489562725262649003590CE /* BungieAPI.swift */; };
+		8489562B25264251003590CE /* Platform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8489562A25264251003590CE /* Platform.swift */; };
 		84DE5FD31FB4F45000A9198E /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DE5FD21FB4F45000A9198E /* FilterViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -32,6 +36,10 @@
 		848955C425261579003590CE /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		848955CD25261886003590CE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8489561D25261DD9003590CE /* TruthApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TruthApp.swift; sourceTree = "<group>"; };
+		8489562125262111003590CE /* GuardianInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuardianInfo.swift; sourceTree = "<group>"; };
+		848956242526242D003590CE /* MembershipID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipID.swift; sourceTree = "<group>"; };
+		8489562725262649003590CE /* BungieAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BungieAPI.swift; sourceTree = "<group>"; };
+		8489562A25264251003590CE /* Platform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Platform.swift; sourceTree = "<group>"; };
 		84DE5FD21FB4F45000A9198E /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -70,6 +78,10 @@
 				00B07D3A1F86892600DB3E59 /* Secrets.plist */,
 				8489561D25261DD9003590CE /* TruthApp.swift */,
 				848955A325260ECF003590CE /* SearchView.swift */,
+				8489562125262111003590CE /* GuardianInfo.swift */,
+				848956242526242D003590CE /* MembershipID.swift */,
+				8489562725262649003590CE /* BungieAPI.swift */,
+				8489562A25264251003590CE /* Platform.swift */,
 				00B07D171F8665A700DB3E59 /* ViewController.swift */,
 				84DE5FD21FB4F45000A9198E /* FilterViewController.swift */,
 				848955C425261579003590CE /* LaunchScreen.storyboard */,
@@ -175,10 +187,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8489562825262649003590CE /* BungieAPI.swift in Sources */,
 				00B07D361F86683100DB3E59 /* UIColor+Truth.swift in Sources */,
 				00B07D181F8665A700DB3E59 /* ViewController.swift in Sources */,
 				00B07D391F8678CF00DB3E59 /* BungieAPIService.swift in Sources */,
+				848956252526242D003590CE /* MembershipID.swift in Sources */,
 				848955A425260ECF003590CE /* SearchView.swift in Sources */,
+				8489562B25264251003590CE /* Platform.swift in Sources */,
+				8489562225262111003590CE /* GuardianInfo.swift in Sources */,
 				0019A63B1F8C121B0015C451 /* Utilities.swift in Sources */,
 				84DE5FD31FB4F45000A9198E /* FilterViewController.swift in Sources */,
 				8489561E25261DD9003590CE /* TruthApp.swift in Sources */,
