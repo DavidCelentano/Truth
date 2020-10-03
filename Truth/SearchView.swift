@@ -11,7 +11,7 @@ import SwiftUI
 struct SearchView: View {
   private let bungieAPI = BungieAPI()
   @State private var username = "Hurk"
-  @State private var account = Account(characterIds: [])
+  @State private var account = Account(characters: [])
   
     var body: some View {
       VStack {
@@ -20,10 +20,9 @@ struct SearchView: View {
         Button("Search") {
           bungieAPI.getAccount(username: username, platform: .xbox) { account in
             self.account = account
+            print(account.characters.first?.specialWeaopn)
           }
         }
-        Text(account.characterIds.first ?? "N/A")
-        Text(account.characterIds.last ?? "N/A")
       }
     }
 }

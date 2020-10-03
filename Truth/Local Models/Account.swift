@@ -9,5 +9,5 @@
 import Foundation
 
 struct Account {
-  let characterIds: [String]
+  let characters: [Character]
 }

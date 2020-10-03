@@ -20,6 +20,10 @@
 		8489562B25264251003590CE /* Platform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8489562A25264251003590CE /* Platform.swift */; };
 		84895635252646D8003590CE /* PlayerProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84895634252646D8003590CE /* PlayerProfile.swift */; };
 		8489563A25264A41003590CE /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8489563925264A41003590CE /* Account.swift */; };
+		8489563D2528CF84003590CE /* InventorySummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8489563C2528CF84003590CE /* InventorySummary.swift */; };
+		848956402528D258003590CE /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8489563F2528D258003590CE /* Character.swift */; };
+		848956432528FBAA003590CE /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848956422528FBAA003590CE /* Item.swift */; };
+		848956472529013D003590CE /* RawStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848956462529013D003590CE /* RawStats.swift */; };
 		84DE5FD31FB4F45000A9198E /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DE5FD21FB4F45000A9198E /* FilterViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -40,6 +44,10 @@
 		8489562A25264251003590CE /* Platform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Platform.swift; sourceTree = "<group>"; };
 		84895634252646D8003590CE /* PlayerProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerProfile.swift; sourceTree = "<group>"; };
 		8489563925264A41003590CE /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		8489563C2528CF84003590CE /* InventorySummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventorySummary.swift; sourceTree = "<group>"; };
+		8489563F2528D258003590CE /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
+		848956422528FBAA003590CE /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		848956462529013D003590CE /* RawStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawStats.swift; sourceTree = "<group>"; };
 		84DE5FD21FB4F45000A9198E /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -80,9 +88,7 @@
 				8489562725262649003590CE /* BungieAPI.swift */,
 				84895632252646A8003590CE /* Local Models */,
 				8489562F2526460B003590CE /* Cloud Models */,
-				00B07D171F8665A700DB3E59 /* ViewController.swift */,
-				84DE5FD21FB4F45000A9198E /* FilterViewController.swift */,
-				00B07D3E1F89079400DB3E59 /* Bungie API */,
+				00B07D3E1F89079400DB3E59 /* Delete */,
 				848955C425261579003590CE /* LaunchScreen.storyboard */,
 				00B07D371F866B7800DB3E59 /* Assets+Extensions */,
 			);
@@ -98,12 +104,14 @@
 			path = "Assets+Extensions";
 			sourceTree = "<group>";
 		};
-		00B07D3E1F89079400DB3E59 /* Bungie API */ = {
+		00B07D3E1F89079400DB3E59 /* Delete */ = {
 			isa = PBXGroup;
 			children = (
+				00B07D171F8665A700DB3E59 /* ViewController.swift */,
+				84DE5FD21FB4F45000A9198E /* FilterViewController.swift */,
 				00B07D381F8678CF00DB3E59 /* BungieAPIService.swift */,
 			);
-			path = "Bungie API";
+			path = Delete;
 			sourceTree = "<group>";
 		};
 		8489562F2526460B003590CE /* Cloud Models */ = {
@@ -111,6 +119,9 @@
 			children = (
 				848956242526242D003590CE /* MembershipId.swift */,
 				84895634252646D8003590CE /* PlayerProfile.swift */,
+				8489563C2528CF84003590CE /* InventorySummary.swift */,
+				848956422528FBAA003590CE /* Item.swift */,
+				848956462529013D003590CE /* RawStats.swift */,
 			);
 			path = "Cloud Models";
 			sourceTree = "<group>";
@@ -129,6 +140,7 @@
 			children = (
 				8489562A25264251003590CE /* Platform.swift */,
 				8489563925264A41003590CE /* Account.swift */,
+				8489563F2528D258003590CE /* Character.swift */,
 			);
 			path = "Local Models";
 			sourceTree = "<group>";
@@ -211,15 +223,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				848956402528D258003590CE /* Character.swift in Sources */,
 				8489562825262649003590CE /* BungieAPI.swift in Sources */,
+				848956472529013D003590CE /* RawStats.swift in Sources */,
 				8489563A25264A41003590CE /* Account.swift in Sources */,
 				84895635252646D8003590CE /* PlayerProfile.swift in Sources */,
+				848956432528FBAA003590CE /* Item.swift in Sources */,
 				00B07D361F86683100DB3E59 /* UIColor+Truth.swift in Sources */,
 				00B07D181F8665A700DB3E59 /* ViewController.swift in Sources */,
 				00B07D391F8678CF00DB3E59 /* BungieAPIService.swift in Sources */,
 				848956252526242D003590CE /* MembershipId.swift in Sources */,
 				848955A425260ECF003590CE /* SearchView.swift in Sources */,
 				8489562B25264251003590CE /* Platform.swift in Sources */,
+				8489563D2528CF84003590CE /* InventorySummary.swift in Sources */,
 				84DE5FD31FB4F45000A9198E /* FilterViewController.swift in Sources */,
 				8489561E25261DD9003590CE /* TruthApp.swift in Sources */,
 			);
